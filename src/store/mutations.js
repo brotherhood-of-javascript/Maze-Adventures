@@ -1,3 +1,10 @@
-export const refreshCells = (state, cells) => {
-  state.cells = cells
-}
+export const move = (state, { type, xy }) => {
+  state[type][xy.x][xy.y] = '3';
+  state[type] = [...state[type]];
+  console.log(state[type]);
+};
+export const del = (state, { type, xy }) => {
+  state[type][xy.x][xy.y] = ' ';
+  state[type] = [...state[type]];
+  console.log(state[type]);
+};
