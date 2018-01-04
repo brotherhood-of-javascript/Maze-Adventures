@@ -11,13 +11,12 @@
 </template>
 
 <script>
-import Vue from "Vue";
-import GameTerran from "./GameTerran";
+import GameTerran from './GameTerran'
 
 export default {
-  name: "GameScreen",
+  name: 'GameScreen',
   components: { GameTerran }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
