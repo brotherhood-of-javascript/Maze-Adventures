@@ -1,69 +1,44 @@
 <template>
         <ul>
             <div v-for="x in drawMap">
-                <li v-for="n in x" :id="n.id" :class="n.class"  v-on:click="doWork($event)"></li>
+                <li v-for="n in x" :id="n.id" :class="n.class"></li>
             </div>
         </ul>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      hero: { x: 8, y: 7 },
-      fillField: field => {
-        switch (field) {
-          case '0':
-            return 'tree'
-          case '1':
-            return 'wall'
-          case '2':
-            return 'monster'
-          case '3':
-            return 'hero'
-        }
-      },
-      drawMap1: () => {
-        return this.$store.getters.mapGetter
-      }
-    }
-  },
-  methods: {
-    doWork(e) {
-      console.log(e.target)
-      this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
-      this.drawMap1()
-    }
-  },
   created: function() {
     window.addEventListener('keyup', event => {
+      const hero = this.$store.state.hero
       switch (event.keyCode) {
         case 40:
-          if (this.$store.state.terran[this.hero.x + 1][this.hero.y] !== ' ') return
-          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y })
-          this.hero.x++
-          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
+          if (this.$store.state.terran[hero.x + 1][hero.y] !== ' ') return
+          this.$store.dispatch('heroDelete')
+          this.$store.dispatch('heroMove', { x: hero.x + 1, y: hero.y })
+          this.$store.dispatch('heroDraw')
           break
         case 38:
-          if (this.$store.state.terran[this.hero.x - 1][this.hero.y] !== ' ') return
-          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y })
-          this.hero.x--
-          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
+          if (this.$store.state.terran[hero.x - 1][hero.y] !== ' ') return
+          this.$store.dispatch('heroDelete')
+          this.$store.dispatch('heroMove', { x: hero.x - 1, y: hero.y })
+          this.$store.dispatch('heroDraw')
           break
         case 39:
-          if (this.$store.state.terran[this.hero.x][this.hero.y + 1] !== ' ') return
-          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y })
-          this.hero.y++
-          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
+          if (this.$store.state.terran[hero.x][hero.y + 1] !== ' ') return
+          this.$store.dispatch('heroDelete')
+          this.$store.dispatch('heroMove', { x: hero.x, y: hero.y + 1 })
+          this.$store.dispatch('heroDraw')
           break
         case 37:
-          if (this.$store.state.terran[this.hero.x][this.hero.y - 1] !== ' ') return
-          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y })
-          this.hero.y--
-          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
+          if (this.$store.state.terran[hero.x][hero.y - 1] !== ' ') return
+          this.$store.dispatch('heroDelete')
+          this.$store.dispatch('heroMove', { x: hero.x, y: hero.y - 1 })
+          this.$store.dispatch('heroDraw')
           break
       }
     })
+    this.$store.dispatch('heroDraw')
   },
   computed: {
     drawMap() {
