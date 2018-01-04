@@ -26,9 +26,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'SaveScreen'
-  }
+export default {
+  name: 'SaveScreen'
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

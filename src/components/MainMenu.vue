@@ -19,8 +19,8 @@
 
 <script>
 export default {
-  name: "MainMenu"
-};
+  name: 'MainMenu'
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

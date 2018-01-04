@@ -10,67 +10,67 @@
 export default {
   data() {
     return {
-      hero: { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) },
+      hero: { x: 8, y: 7 },
       fillField: field => {
         switch (field) {
           case '0':
-            return 'tree';
+            return 'tree'
           case '1':
-            return 'wall';
+            return 'wall'
           case '2':
-            return 'monster';
+            return 'monster'
           case '3':
-            return 'hero';
+            return 'hero'
         }
       },
       drawMap1: () => {
-        return this.$store.getters.mapGetter;
+        return this.$store.getters.mapGetter
       }
-    };
+    }
   },
   methods: {
     doWork(e) {
-      console.log(e.target);
-      this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y });
-      this.drawMap1();
+      console.log(e.target)
+      this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
+      this.drawMap1()
     }
   },
   created: function() {
     window.addEventListener('keyup', event => {
       switch (event.keyCode) {
         case 40:
-          if (this.$store.state.terran[this.hero.x + 1][this.hero.y] !== ' ') return;
-          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y });
-          this.hero.x++;
-          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y });
-          break;
+          if (this.$store.state.terran[this.hero.x + 1][this.hero.y] !== ' ') return
+          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y })
+          this.hero.x++
+          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
+          break
         case 38:
-          if (this.$store.state.terran[this.hero.x - 1][this.hero.y] !== ' ') return;
-          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y });
-          this.hero.x--;
-          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y });
-          break;
+          if (this.$store.state.terran[this.hero.x - 1][this.hero.y] !== ' ') return
+          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y })
+          this.hero.x--
+          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
+          break
         case 39:
-          if (this.$store.state.terran[this.hero.x][this.hero.y + 1] !== ' ') return;
-          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y });
-          this.hero.y++;
-          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y });
-          break;
+          if (this.$store.state.terran[this.hero.x][this.hero.y + 1] !== ' ') return
+          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y })
+          this.hero.y++
+          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
+          break
         case 37:
-          if (this.$store.state.terran[this.hero.x][this.hero.y - 1] !== ' ') return;
-          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y });
-          this.hero.y--;
-          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y });
-          break;
+          if (this.$store.state.terran[this.hero.x][this.hero.y - 1] !== ' ') return
+          this.$store.dispatch('heroDelete', { x: this.hero.x, y: this.hero.y })
+          this.hero.y--
+          this.$store.dispatch('heroMove', { x: this.hero.x, y: this.hero.y })
+          break
       }
-    });
+    })
   },
   computed: {
     drawMap() {
-      return this.$store.getters.mapGetter;
+      return this.$store.getters.mapGetter
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

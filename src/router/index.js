@@ -1,11 +1,10 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import MainMenu from '../components/MainMenu';
-import GameScreen from '../components/GameScreen';
-import SaveScreen from '../components/SaveScreen';
-import LoadScreen from '../components/LoadScreen';
-import TestStore from '../components/TestStore';
-Vue.use(Router);
+import Vue from 'vue'
+import Router from 'vue-router'
+import MainMenu from '../components/MainMenu'
+import GameScreen from '../components/GameScreen'
+import SaveScreen from '../components/SaveScreen'
+import LoadScreen from '../components/LoadScreen'
+Vue.use(Router)
 
 export default new Router({
   routes: [
@@ -28,11 +27,6 @@ export default new Router({
       path: '/load',
       name: 'LoadScreen',
       component: LoadScreen
-    },
-    {
-      path: '/teststore',
-      name: 'TestStore',
-      component: TestStore
     }
   ]
-});
+})
