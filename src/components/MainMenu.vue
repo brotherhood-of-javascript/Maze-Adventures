@@ -10,9 +10,7 @@
    <div>
       <router-link to="/load" class="button button-huge block-mobile">Load Game</router-link>
    </div>
-   <div>
-      <router-link to="/teststore" class="button button-huge block-mobile">TEST STORE</router-link>
-   </div>
+
 
   </div>
 </template>

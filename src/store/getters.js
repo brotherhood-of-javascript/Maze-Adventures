@@ -1,6 +1,3 @@
-export const someGetter = () => {
-  //  TODO: some getter
-}
 const fillField = field => {
   switch (field) {
     case '0':
@@ -13,6 +10,5 @@ const fillField = field => {
       return 'hero'
   }
 }
-export const mapGetter = state => {
-  return state.terran.map((val, x) => val.map((val, y) => ({ id: `x=${x}-y=${y}`, class: fillField(val) })))
-}
+export const mapGetter = state =>
+  state.terran.map((val, x) => val.map((val, y) => ({ id: `x=${x}-y=${y}`, class: fillField(val) })))
