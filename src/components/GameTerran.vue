@@ -1,7 +1,9 @@
 <template>
         <ul>
-            <div v-for="x in drawMap">
-                <li v-for="n in x" :id="n.id" :class="n.class"></li>
+            <div v-for="(map, x) in drawMap">
+                <li v-for="(n, y) in map" :id="n.id" :class="n.sqare.ground">
+                  <img :src="n.sqare.img" v-if="hero.x === x && hero.y === y">
+                </li>
             </div>
         </ul>
 </template>
@@ -9,7 +11,7 @@
 <script>
 export default {
   created: function() {
-    window.addEventListener('keyup', event => {
+    window.addEventListener('keydown', event => {
       const hero = this.$store.state.hero
       switch (event.keyCode) {
         case 40:
@@ -43,6 +45,9 @@ export default {
   computed: {
     drawMap() {
       return this.$store.getters.mapGetter
+    },
+    hero() {
+      return this.$store.state.hero
     }
   }
 }
@@ -51,7 +56,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 li {
-  padding: 10px;
+  /* padding: 10px; */
   /* border: solid 1px black; */
   float: left;
   width: 45px;
@@ -74,5 +79,13 @@ li {
 }
 .hero {
   background-image: url('https://orig00.deviantart.net/e0b9/f/2010/234/2/8/west_dash_animation_by_hero_in_pixels.gif');
+}
+.way {
+  background-image: url('https://t4.ftcdn.net/jpg/01/07/76/85/240_F_107768523_jtL7cY9ajSRuTJmCfj4SAhTF8cebX317.jpg');
+}
+
+img {
+  width: 100%;
+  height: 100%;
 }
 </style>
