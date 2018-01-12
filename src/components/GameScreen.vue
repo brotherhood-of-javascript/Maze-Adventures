@@ -5,6 +5,7 @@
         <h3 class="text-huge text-white text-with-subtitle">We can be heroes</h3>
         <h4 class="text-big text-gray">just for one day</h4>
         <GameTerran></GameTerran>
+        <end-window/>
       </div>
     </div>
   </section>
@@ -12,10 +13,11 @@
 
 <script>
 import GameTerran from './GameTerran'
+import EndWindow from './EndWindow'
 
 export default {
   name: 'GameScreen',
-  components: { GameTerran }
+  components: { GameTerran, EndWindow }
 }
 </script>
 

@@ -2,7 +2,7 @@
         <ul>
             <div v-for="(map, x) in drawMap">
                 <li v-for="(n, y) in map" :id="n.id" :class="n.sqare.ground">
-                  <img :src="n.sqare.img" v-if="hero.x === x && hero.y === y">
+                  <img :src="heroImg" v-if="hero.x === x && hero.y === y">
                 </li>
             </div>
         </ul>
@@ -10,37 +10,31 @@
 
 <script>
 export default {
+  name: 'GameTerran',
   created: function() {
     window.addEventListener('keydown', event => {
       const hero = this.$store.state.hero
+      const terran = this.$store.state.terran
+      const cantWalk = this.$store.state.cantWalk
       switch (event.keyCode) {
         case 40:
-          if (this.$store.state.terran[hero.x + 1][hero.y] !== ' ') return
-          this.$store.dispatch('heroDelete')
+          if (cantWalk.includes(terran[hero.x + 1][hero.y])) return
           this.$store.dispatch('heroMove', { x: hero.x + 1, y: hero.y })
-          this.$store.dispatch('heroDraw')
           break
         case 38:
-          if (this.$store.state.terran[hero.x - 1][hero.y] !== ' ') return
-          this.$store.dispatch('heroDelete')
+          if (cantWalk.includes(terran[hero.x - 1][hero.y])) return
           this.$store.dispatch('heroMove', { x: hero.x - 1, y: hero.y })
-          this.$store.dispatch('heroDraw')
           break
         case 39:
-          if (this.$store.state.terran[hero.x][hero.y + 1] !== ' ') return
-          this.$store.dispatch('heroDelete')
+          if (cantWalk.includes(terran[hero.x][hero.y + 1])) return
           this.$store.dispatch('heroMove', { x: hero.x, y: hero.y + 1 })
-          this.$store.dispatch('heroDraw')
           break
         case 37:
-          if (this.$store.state.terran[hero.x][hero.y - 1] !== ' ') return
-          this.$store.dispatch('heroDelete')
+          if (cantWalk.includes(terran[hero.x][hero.y - 1])) return
           this.$store.dispatch('heroMove', { x: hero.x, y: hero.y - 1 })
-          this.$store.dispatch('heroDraw')
           break
       }
     })
-    this.$store.dispatch('heroDraw')
   },
   computed: {
     drawMap() {
@@ -48,6 +42,11 @@ export default {
     },
     hero() {
       return this.$store.state.hero
+    }
+  },
+  data: function() {
+    return {
+      heroImg: this.$store.state.hero.img
     }
   }
 }
@@ -83,7 +82,9 @@ li {
 .way {
   background-image: url('https://t4.ftcdn.net/jpg/01/07/76/85/240_F_107768523_jtL7cY9ajSRuTJmCfj4SAhTF8cebX317.jpg');
 }
-
+.tresure {
+  background-image: url('http://images.all-free-download.com/images/graphiclarge/treasure_chest_312091.jpg');
+}
 img {
   width: 100%;
   height: 100%;
