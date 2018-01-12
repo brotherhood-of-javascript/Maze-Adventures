@@ -10,13 +10,15 @@
    <div>
       <router-link to="/load" class="button button-huge block-mobile">Load Game</router-link>
    </div>
+
+
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'MainMenu'
-  }
+export default {
+  name: 'MainMenu'
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -12,11 +12,10 @@ Vue.use(Vuex)
 
 const globalStore = new Vuex.Store(store)
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store: globalStore,
   template: '<App/>',
-  components: {App}
+  components: { App }
 })

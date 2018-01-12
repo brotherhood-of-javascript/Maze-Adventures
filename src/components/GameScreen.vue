@@ -1,21 +1,46 @@
-<template>
-  <section class="section">
+<template id="demo">
+  <section class="section demo-main">
     <div class="section background-dark">
       <div class="container text-center">
         <h3 class="text-huge text-white text-with-subtitle">We can be heroes</h3>
         <h4 class="text-big text-gray">just for one day</h4>
+        <GameTerran></GameTerran>
       </div>
+    </div>
+    <div class="rightcol align-left">
+      <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
+      <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
   </section>
 </template>
 
 <script>
-  export default {
-    name: 'GameScreen'
+import GameTerran from './GameTerran'
+import Inventory from './Inventory'
+
+export default {
+  name: 'GameScreen',
+  components: { GameTerran, Inventory },
+  methods: {
+    getBoxInventory(event) {
+      return this.$store.dispatch('getBoxInventory')
+    }
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+div {
+  width: 1000px;
+  margin: auto;
+}
+.demo-main {
+  display: flex;
+}
+.rightcol {
+  width: 20%;
+  padding: 0;
+  margin: 0 auto;
+}
 </style>
