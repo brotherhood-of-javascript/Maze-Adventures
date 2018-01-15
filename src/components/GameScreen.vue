@@ -5,6 +5,8 @@
         <h3 class="text-huge text-white text-with-subtitle">We can be heroes</h3>
         <h4 class="text-big text-gray">just for one day</h4>
         <GameTerran></GameTerran>
+        <battle-field/>
+        <button>Click</button>
       </div>
     </div>
   </section>
@@ -12,10 +14,11 @@
 
 <script>
 import GameTerran from './GameTerran'
+import BattleField from './BattleField'
 
 export default {
   name: 'GameScreen',
-  components: { GameTerran }
+  components: { GameTerran, BattleField }
 }
 </script>
 
@@ -24,5 +27,9 @@ export default {
 div {
   width: 1000px;
   margin: auto;
+}
+button {
+  background-color: azure;
+  position: absolute;
 }
 </style>
