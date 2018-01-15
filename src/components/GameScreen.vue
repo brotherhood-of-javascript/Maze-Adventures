@@ -5,6 +5,7 @@
         <h3 class="text-huge text-white text-with-subtitle">We can be heroes</h3>
         <h4 class="text-big text-gray">just for one day</h4>
         <GameTerran></GameTerran>
+        <items-window v-show="itemsWindow"/>
       </div>
     </div>
     <div class="rightcol align-left">
@@ -13,8 +14,7 @@
       @click="getBoxInventory"
       >Inventory</button>
       <Inventory 
-      v-show="this.$store.state.openInventory"
-      >
+      v-show="this.$store.state.openInventory">
       </Inventory>
     </div>
   </section>
@@ -23,12 +23,13 @@
 <script>
 import GameTerran from './GameTerran'
 import Inventory from './Inventory'
+import ItemsWindow from './ItemsWindow'
 
 const globalKey = 'quickSave'
 
 export default {
   name: 'GameScreen',
-  components: { GameTerran, Inventory },
+  components: { GameTerran, Inventory, ItemsWindow },
   methods: {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
@@ -36,20 +37,25 @@ export default {
     quickSave(event) {
       console.log('event.keyCode', event.keyCode)
       if (event.keyCode === 120) {
-        //f9
+        //  f9
         localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
       }
       if (event.keyCode === 118) {
-        //f7
+        //  f7
         this.$store.commit('createNewState')
       }
     }
   },
   beforeCreate() {
-    //this.$store.commit('createNewState')
+    //  this.$store.commit('createNewState')
   },
   created() {
     window.addEventListener('keyup', this.quickSave)
+  },
+  computed: {
+    itemsWindow: function() {
+      return this.$store.state.itemsWindow
+    }
   }
 }
 </script>

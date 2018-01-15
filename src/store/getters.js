@@ -35,4 +35,14 @@ export const mapGetter = state =>
   state.terran.map((val, x) => val.map((val, y) => ({ id: `x=${x}-y=${y}`, class: fillField(val) })))
 
 export const drowBoxInventory = state =>
-  state.inventory.map((val, i) => val.map((val, y) => ({ id: `${i}${y}`, weight: setClassInveroment(val), quantity: 1, describe: 'some items', class: setClassInveroment(val) })))
+  state.inventory.map((val, i) =>
+    val.map((val, y) => ({
+      id: `${i}${y}`,
+      weight: setClassInveroment(val),
+      quantity: 1,
+      describe: 'some items',
+      class: setClassInveroment(val)
+    }))
+  )
+
+export const itemGetter = state => state.items[state.terran[state.hero.x][state.hero.y]]
