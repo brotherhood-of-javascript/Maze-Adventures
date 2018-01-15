@@ -1,14 +1,16 @@
 const fillField = field => {
   switch (field) {
     case '0':
-      return 'tree'
+      return { ground: 'tree', img: '' }
     case '1':
-      return 'wall'
+      return { ground: 'wall', img: '' }
     case '2':
-      return 'monster'
+      return { ground: 'monster', img: '' }
     case '3':
-      return 'hero'
+      return { ground: 'tresure', img: '' }
+    case ' ':
+      return { ground: '', img: '' }
   }
 }
 export const mapGetter = state =>
-  state.terran.map((val, x) => val.map((val, y) => ({ id: `x=${x}-y=${y}`, class: fillField(val) })))
+  state.terran.map((val, x) => val.map((val, y) => ({ id: `x=${x}-y=${y}`, sqare: fillField(val) })))
