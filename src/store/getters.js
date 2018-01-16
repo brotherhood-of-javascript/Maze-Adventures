@@ -32,7 +32,7 @@ const setClassInveroment = value => {
   }
 }
 export const mapGetter = state =>
-  state.terran.map((val, x) => val.map((val, y) => ({ id: `x=${x}-y=${y}`, class: fillField(val) })))
+  state.terran.map((val, x) => val.map((val, y) => ({ id: `x=${x}-y=${y}`, class: state.items[val].class })))
 
 export const drowBoxInventory = state =>
   state.inventory.map((val, i) =>
