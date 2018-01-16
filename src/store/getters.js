@@ -1,16 +1,48 @@
 const fillField = field => {
   switch (field) {
     case '0':
-      return { ground: 'tree', img: '' }
+      return 'tree'
     case '1':
-      return { ground: 'wall', img: '' }
+      return 'wall'
     case '2':
-      return { ground: 'monster', img: '' }
+      return 'monster'
     case '3':
-      return { ground: 'tresure', img: '' }
+      return 'hero'
+    case '4':
+      return 'diamond'
+    case '5':
+      return 'gold'
+    case '6':
+      return 'food'
     case ' ':
-      return { ground: '', img: '' }
+      return ' '
+  }
+}
+
+const setClassInveroment = value => {
+  switch (value) {
+    case '4':
+      return 'diamond'
+    case '5':
+      return 'gold'
+    case '6':
+      return 'food'
+    case ' ':
+      return ' '
   }
 }
 export const mapGetter = state =>
-  state.terran.map((val, x) => val.map((val, y) => ({ id: `x=${x}-y=${y}`, sqare: fillField(val) })))
+  state.terran.map((val, x) => val.map((val, y) => ({ id: `x=${x}-y=${y}`, class: fillField(val) })))
+
+export const drowBoxInventory = state =>
+  state.inventory.map((val, i) =>
+    val.map((val, y) => ({
+      id: `${i}${y}`,
+      weight: setClassInveroment(val),
+      quantity: 1,
+      describe: 'some items',
+      class: setClassInveroment(val)
+    }))
+  )
+
+export const itemGetter = state => state.items[state.terran[state.hero.x][state.hero.y]]

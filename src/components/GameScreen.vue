@@ -1,37 +1,61 @@
-<template id="demo" >
-  <section class="section aligner-space-between">
-      <div class="menu-bord " v:onkeyup.esc='backTomainMenu'>
-        <router-link to="/" class="button button-huge block-mobile">back to main menu</router-link>
-      </div>
+<template id="demo">
+  <section class="section demo-main">
     <div class="section background-dark">
-      <div class="container text-center ">
+      <div class="container text-center">
         <h3 class="text-huge text-white text-with-subtitle">We can be heroes</h3>
         <h4 class="text-big text-gray">just for one day</h4>
         <GameTerran></GameTerran>
+        <items-window v-show="itemsWindow"/>
       </div>
+    </div>
+    <div class="rightcol align-left">
+      <button 
+      class="button button-huge block-mobile" 
+      @click="getBoxInventory"
+      >Inventory</button>
+      <Inventory 
+      v-show="this.$store.state.openInventory">
+      </Inventory>
     </div>
   </section>
 </template>
 
 <script>
 import GameTerran from './GameTerran'
+import Inventory from './Inventory'
+import ItemsWindow from './ItemsWindow'
+
+const globalKey = 'quickSave'
 
 export default {
   name: 'GameScreen',
-  components: { GameTerran },
-  //   methods: {
-  //   backTomainMenu: () => {
-  //     alert("keycode: ");
-  //   }
-  // },
-  created: function() {
-    window.addEventListener('keyup', event => {
-      switch (event.keyCode) {
-        case 27:
-          this.$router.push({ name: 'MainMenu' })
+  components: { GameTerran, Inventory, ItemsWindow },
+  methods: {
+    getBoxInventory(event) {
+      return this.$store.dispatch('getBoxInventory')
+    },
+    quickSave(event) {
+      console.log('event.keyCode', event.keyCode)
+      if (event.keyCode === 120) {
+        //  f9
+        localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
       }
-    })
-    window.removeEventListener('keyup', event)
+      if (event.keyCode === 118) {
+        //  f7
+        this.$store.commit('createNewState')
+      }
+    }
+  },
+  beforeCreate() {
+    //  this.$store.commit('createNewState')
+  },
+  created() {
+    window.addEventListener('keyup', this.quickSave)
+  },
+  computed: {
+    itemsWindow: function() {
+      return this.$store.state.itemsWindow
+    }
   }
 }
 </script>
@@ -42,8 +66,12 @@ div {
   width: 1000px;
   margin: auto;
 }
-button {
-  background-color: azure;
-  position: absolute;
+.demo-main {
+  display: flex;
+}
+.rightcol {
+  width: 20%;
+  padding: 0;
+  margin: 0 auto;
 }
 </style>
