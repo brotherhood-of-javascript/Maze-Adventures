@@ -1,11 +1,19 @@
-<template id="demo">
-  <section class="section demo-main">
+<template id="demo" >
+   <section class="section demo-main">
+
     <div class="section background-dark">
-      <div class="container text-center">
+      <div class="container text-center ">
         <h3 class="text-huge text-white text-with-subtitle">We can be heroes</h3>
         <h4 class="text-big text-gray">just for one day</h4>
         <GameTerran></GameTerran>
       </div>
+    </div>
+    <div class="rightcol align-left">
+      <div class="menu-bord " v:onkeyup.esc='backTomainMenu'>
+        <router-link to="/" class="button button-huge block-mobile">back to main menu</router-link>
+      </div>
+      <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
+      <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
     <div class="rightcol align-left">
       <button 
@@ -32,6 +40,7 @@ export default {
   methods: {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
+
     },
     quickSave(event) {
       console.log('event.keyCode', event.keyCode)
@@ -50,6 +59,13 @@ export default {
   },
   created() {
     window.addEventListener('keyup', this.quickSave)
+     window.addEventListener('keyup', event => {
+      switch (event.keyCode) {
+        case 27:
+          this.$router.push({ name: 'MainMenu' })
+      }
+    })
+    window.removeEventListener('keyup', event)
   }
 }
 </script>

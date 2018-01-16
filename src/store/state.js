@@ -1,4 +1,4 @@
-export default function () {
+export default function() {
   return {
     cells: [{ text: 'foo' }, { text: 'bazz' }, { text: 'bar' }],
     hero: { x: 1, y: 1 },

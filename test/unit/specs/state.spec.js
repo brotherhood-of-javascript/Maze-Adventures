@@ -47,3 +47,4 @@ describe('store', () => {
         expect(store.state.inventory).toBeDefined();
     });
 });
+

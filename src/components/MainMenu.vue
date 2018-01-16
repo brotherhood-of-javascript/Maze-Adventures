@@ -4,8 +4,11 @@
    <div>
       <router-link to="/game" class="button button-huge block-mobile">New Game</router-link>
    </div>
+    <div>
+      <router-link to="/game" class="button button-huge block-mobile resume button-red">Resume</router-link>
+   </div>
    <div>
-      <router-link to="/save" class="button button-huge block-mobile">Save Game</router-link>
+      <router-link to="/save" class="button button-huge block-mobile ">Save Game</router-link>
    </div>
    <div>
       <router-link to="/load" class="button button-huge block-mobile">Load Game</router-link>
@@ -23,5 +26,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.resume {
+  width: 200px;
+}
 </style>

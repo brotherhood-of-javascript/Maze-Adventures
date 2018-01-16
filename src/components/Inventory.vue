@@ -39,7 +39,7 @@ export default {
         if (i.weight !== ' ' && this.totalWeight < this.herroWeight) {
           this.totalWeight += 10
         }
-        if (this.totalWeight === this.herroWeight) {
+        if (this.totalWeight == this.herroWeight) {
           this.messege = 'Your bag is full!'
           this.classObject['badge-error'] = true
         }
