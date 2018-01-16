@@ -2,7 +2,7 @@
     <div class="inventory">
         <ul class="inventory-maine" >
             <li v-for="item in drowBoxInventory">
-                 <div  v-for="i in item" :class="`section  ${i.class}`" ></div>
+                <div  v-for="i in item" :class="`section  ${i.class}`" ></div>
             </li>
         </ul>
         <div class="text-medium text-gray background-dark inventory-box">
