@@ -8,6 +8,10 @@ const fillField = field => {
       return { ground: 'monster', img: '' }
     case '3':
       return { ground: 'tresure', img: '' }
+    case '4':
+      return { ground: 'apple', img: '' }
+    case '5':
+      return { ground: 'axe', img: '' }
     case ' ':
       return { ground: '', img: '' }
   }
