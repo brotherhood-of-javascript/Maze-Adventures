@@ -7,6 +7,7 @@ export const heroMove = async ({ commit }, heroCoords) => {
 }
 export const heroDraw = async ({ state, commit }) => {
   commit('draw', { type: 'terran', xy: state.hero })
+
 }
 export const getBoxInventory = async ({ state, commit }) => {
   commit('hideOrShowInventory')

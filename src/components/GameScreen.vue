@@ -1,13 +1,17 @@
-<template id="demo">
-  <section class="section demo-main">
+
+<template id="demo" >
+   <section class="section demo-main">
     <div class="section background-dark">
-      <div class="container text-center">
+      <div class="container text-center ">
         <h3 class="text-huge text-white text-with-subtitle">We can be heroes</h3>
         <h4 class="text-big text-gray">just for one day</h4>
         <GameTerran></GameTerran>
       </div>
     </div>
     <div class="rightcol align-left">
+      <div class="menu-bord " v:onkeyup.esc='backTomainMenu'>
+        <router-link to="/" class="button button-huge block-mobile">back to main menu</router-link>
+      </div>
       <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
@@ -15,8 +19,8 @@
 </template>
 
 <script>
-import GameTerran from './GameTerran'
 import Inventory from './Inventory'
+import GameTerran from './GameTerran'
 
 export default {
   name: 'GameScreen',
@@ -25,6 +29,15 @@ export default {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
     }
+  },
+  created: function() {
+    window.addEventListener('keyup', event => {
+      switch (event.keyCode) {
+        case 27:
+          this.$router.push({ name: 'MainMenu' })
+      }
+    })
+    window.removeEventListener('keyup', event)
   }
 }
 </script>
@@ -43,4 +56,5 @@ div {
   padding: 0;
   margin: 0 auto;
 }
+
 </style>

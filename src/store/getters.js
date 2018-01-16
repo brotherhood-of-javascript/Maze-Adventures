@@ -10,7 +10,6 @@ const fillField = field => {
       return 'hero'
   }
 }
-
 const setClassInveroment = value => {
   switch (value) {
     case '0':
@@ -28,3 +27,4 @@ export const mapGetter = state =>
 
 export const drowBoxInventory = state =>
   state.inventory.map((val, i) => val.map((val, y) => ({ id: `${i}${y}`, weight: setClassInveroment(val), quantity: 1, describe: 'some items', class: setClassInveroment(val) })))
+
