@@ -20,3 +20,14 @@ it('Should  testing  spy non for heroDraw', () => {
   actions.heroDraw(store)
   expect(spy).toHaveBeenCalled()
 })
+describe('Testing action Inventory', () => {
+  it('Should  testing  spy non for getBoxInventory', () => {
+    let spy = spyOn(actions, 'getBoxInventory').and.callThrough()
+    actions.getBoxInventory(store)
+    expect(spy).toHaveBeenCalled()
+  })
+})
+<<<<<<< HEAD
+=======
+
+>>>>>>> 90fce427dbed63276d489ae8264dbbb83e97b9f3

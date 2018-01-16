@@ -43,4 +43,11 @@ describe('store', () => {
     it("Should  exist  hero 'y'", () => {
         expect(store.state.hero.y).toBeDefined();
     });
+    it("Should Defined inventory arrey in state", () => {
+        expect(store.state.inventory).toBeDefined();
+    });
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 90fce427dbed63276d489ae8264dbbb83e97b9f3
