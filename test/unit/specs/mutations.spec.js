@@ -23,3 +23,17 @@ describe('Testing mutations', () => {
     expect(ter.terran).toEqual([['1', '0', ' '], ['1', ' ', '1']])
   })
 })
+
+describe('Testing mutations for Inventory', () => {
+  let store
+  beforeEach(() => {
+    store = {
+      openInventory: false
+    }
+  })
+  it('Should  testing  spy non for hideOrShowInventory', () => {
+    spyOn(mutations, 'hideOrShowInventory').and.callThrough()
+    mutations.hideOrShowInventory(store)
+    expect(store.openInventory).toBe(true);
+  })
+})

@@ -9,3 +9,6 @@ export const del = (state, { type, xy }) => {
   state[type][xy.x][xy.y] = ' '
   state[type] = [...state[type]]
 }
+export const hideOrShowInventory = (state) => {
+  state.openInventory = !state.openInventory
+}
