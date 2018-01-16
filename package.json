@@ -1,5 +1,5 @@
 {
-  "homepage": "https://okyesanap.github.io/Maze-Adventures/",
+  "homepage": "https://github.com/OkYesAnap/Maze-Adventures",
   "name": "maze-adventure",
   "version": "1.0.0",
   "description": "Simple maze exploration game",
@@ -84,9 +84,5 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }
