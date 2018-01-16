@@ -21,9 +21,9 @@ export default function() {
     totalWeight: 0,
     items: {
       ' ': { name: '', weight: 0, class: '' },
-      '0': { name: 'Tree', weight: 1, class: 'tree' },
-      '1': { name: 'Wall', weight: 1, class: 'wall' },
-      '2': { name: 'Monster', weight: 1, class: 'monster' },
+      '0': { name: 'Tree', weight: 0, class: 'tree' },
+      '1': { name: 'Wall', weight: 0, class: 'wall' },
+      '2': { name: 'Monster', weight: 0, class: 'monster' },
       '3': { name: 'Hero', weight: 1, class: 'hero' },
       '4': { name: 'Diamond', weight: 1, class: 'diamond' },
       '5': { name: 'Gold', weight: 5, class: 'gold' },
