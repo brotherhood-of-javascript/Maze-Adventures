@@ -12,3 +12,8 @@ export const del = (state, { type, xy }) => {
 export const hideOrShowInventory = (state) => {
   state.openInventory = !state.openInventory
 }
+export const createNewState = (state) => {
+  if (localStorage.getItem('quickSave')) {
+    Object.assign(state, JSON.parse(localStorage.getItem('quickSave')))
+  }
+}
