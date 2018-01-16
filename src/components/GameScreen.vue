@@ -42,4 +42,8 @@ div {
   width: 1000px;
   margin: auto;
 }
+button {
+  background-color: azure;
+  position: absolute;
+}
 </style>
