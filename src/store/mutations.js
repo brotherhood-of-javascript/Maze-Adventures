@@ -9,3 +9,9 @@ export const del = (state, { type, xy }) => {
   state[type][xy.x][xy.y] = ' '
   state[type] = [...state[type]]
 }
+export const saveNewState = (state, name) => {
+  localStorage.setItem(name, JSON.stringify(state))
+}
+export const removeSavedState = (state, name) => {
+  localStorage.removeItem(name)
+}
