@@ -12,7 +12,7 @@
       <div class="menu-bord " v:onkeyup.esc='backTomainMenu'>
         <router-link to="/" class="button button-huge block-mobile">back to main menu</router-link>
       </div>
-      <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
+      <button class="button block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
   </section>
@@ -23,7 +23,7 @@ import GameTerran from './GameTerran'
 import Inventory from './Inventory'
 import ItemsWindow from './ItemsWindow'
 
-const globalKey = 'quickSave'
+const globalKey = 'quickSave3'
 
 export default {
   name: 'GameScreen',
@@ -33,14 +33,13 @@ export default {
       return this.$store.dispatch('getBoxInventory')
     },
     quickSave(event) {
-      console.log('event.keyCode', event.keyCode)
       if (event.keyCode === 120) {
         //  f9
         localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
       }
       if (event.keyCode === 118) {
         //  f7
-        this.$store.commit('createNewState')
+        this.$store.commit('createNewState', globalKey)
       }
     }
   },
