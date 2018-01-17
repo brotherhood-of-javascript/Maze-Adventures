@@ -1,10 +1,12 @@
 {
+  "homepage": "https://github.com/OkYesAnap/Maze-Adventures",
   "name": "maze-adventure",
   "version": "1.0.0",
   "description": "Simple maze exploration game",
   "author": "Igor Nesterenko <igor.nesterenko@globallogic.com>",
   "private": true,
   "scripts": {
+    "deploy": "node ./node_modules/vue-gh-pages/index.js",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
@@ -15,6 +17,7 @@
   },
   "dependencies": {
     "vue": "^2.5.2",
+    "vue-gh-pages": "^1.7.5",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
@@ -81,9 +84,5 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }

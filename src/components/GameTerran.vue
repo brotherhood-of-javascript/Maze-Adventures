@@ -1,7 +1,12 @@
 <template>
         <ul>
+<<<<<<< HEAD
             <div v-for="x in drawMap">
                 <li v-for="n in x" :id="n.id" :class="n.class"></li>
+=======
+            <div v-for="(arr, x) in drawMap">
+                <li v-for="(val, y) in arr" :id="val.id" :class="val.class"><img :src="img" v-if="hero.x===x && hero.y===y"></li>
+>>>>>>> master
             </div>
         </ul>
 </template>
@@ -9,6 +14,7 @@
 <script>
 export default {
   created: function() {
+<<<<<<< HEAD
     window.addEventListener('keyup', event => {
       const hero = this.$store.state.hero
       switch (event.keyCode) {
@@ -39,11 +45,50 @@ export default {
       }
     })
     this.$store.dispatch('heroDraw')
+=======
+    window.addEventListener('keydown', event => {
+      const hero = this.$store.state.hero
+      const terran = this.$store.state.terran
+      const cantWalk = this.$store.state.cantWalk
+      const pickableItems = this.$store.state.pickableItems
+      switch (event.keyCode) {
+        case 40:
+          if (cantWalk.includes(terran[hero.x + 1][hero.y])) return
+          this.$store.dispatch('heroMove', { x: hero.x + 1, y: hero.y })
+          break
+        case 38:
+          if (cantWalk.includes(terran[hero.x - 1][hero.y])) return
+          this.$store.dispatch('heroMove', { x: hero.x - 1, y: hero.y })
+          break
+        case 39:
+          if (cantWalk.includes(terran[hero.x][hero.y + 1])) return
+          this.$store.dispatch('heroMove', { x: hero.x, y: hero.y + 1 })
+          break
+        case 37:
+          if (cantWalk.includes(terran[hero.x][hero.y - 1])) return
+          this.$store.dispatch('heroMove', { x: hero.x, y: hero.y - 1 })
+          break
+        case 13:
+          if (pickableItems.includes(terran[hero.x][hero.y])) this.$store.dispatch('pickItem')
+          break
+      }
+    })
+>>>>>>> master
   },
   computed: {
     drawMap() {
       return this.$store.getters.mapGetter
+<<<<<<< HEAD
     }
+=======
+    },
+    hero() {
+      return this.$store.state.hero
+    }
+  },
+  data: function() {
+    return { img: this.$store.state.hero.img }
+>>>>>>> master
   }
 }
 </script>
@@ -51,8 +96,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 li {
+<<<<<<< HEAD
   padding: 10px;
   /* border: solid 1px black; */
+=======
+>>>>>>> master
   float: left;
   width: 45px;
   height: 45px;

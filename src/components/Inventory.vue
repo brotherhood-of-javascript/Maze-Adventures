@@ -89,4 +89,7 @@ li {
   background-size: 100%;
 }
 </style>
+<<<<<<< HEAD
 
+=======
+>>>>>>> master

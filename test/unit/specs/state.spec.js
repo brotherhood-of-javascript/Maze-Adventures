@@ -46,4 +46,12 @@ describe('store', () => {
     it("Should Defined inventory arrey in state", () => {
         expect(store.state.inventory).toBeDefined();
     });
+<<<<<<< HEAD
 });
+=======
+});
+<<<<<<< HEAD
+=======
+
+>>>>>>> 90fce427dbed63276d489ae8264dbbb83e97b9f3
+>>>>>>> master

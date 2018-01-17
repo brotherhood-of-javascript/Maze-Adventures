@@ -3,8 +3,13 @@
     <h2 class="text-gray title-save-load-menu">Load Game</h2>
       <table class="table save-table">
          <thead>
+<<<<<<< HEAD
            <tr class="text-medium align-center">
              <th>Name Loading</th>
+=======
+           <tr class="text-small align-left">
+             <th>Key-Name</th>
+>>>>>>> master
              <th>Date</th>
              <th>Remove</th>
              </tr>
@@ -31,6 +36,7 @@
 </template>
 <script>
 export default {
+<<<<<<< HEAD
   name: 'LoadScreen',
   data: function() {
     return {
@@ -84,6 +90,9 @@ export default {
     this.keyNames = arrKey
   },
   created() {}
+=======
+  name: 'SaveScreen'
+>>>>>>> master
 }
 </script>
 
