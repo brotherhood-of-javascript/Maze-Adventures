@@ -18,15 +18,6 @@ describe('getter', () => {
       [{ id: 'x=1-y=0', class: 'monster' }, { id: 'x=1-y=1', class: 'hero' }]
     ])
   })
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> 90fce427dbed63276d489ae8264dbbb83e97b9f3
->>>>>>> master
   it('Should  testing  spy non for drowBoxInventory', () => {
     spyOn(getters, 'drowBoxInventory').and.callThrough()
     expect(getters.drowBoxInventory(ter)).toEqual([[{ "class": "diamond", "describe": "some items", "id": "00", "quantity": 1, "weight": "diamond" },

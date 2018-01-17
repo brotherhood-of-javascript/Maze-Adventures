@@ -1,19 +1,6 @@
-export default function() {
+export default function () {
   return {
     cells: [{ text: 'foo' }, { text: 'bazz' }, { text: 'bar' }],
-<<<<<<< HEAD
-    hero: { x: 1, y: 1 },
-    inventory: [
-      ['4', ' ', '5', ' ', ' '],
-      [' ', ' ', ' ', ' ', ' '],
-      [' ', ' ', '6', ' ', ' '],
-      ['5', ' ', ' ', '4', ' '],
-      [' ', ' ', ' ', '6', ' ']
-    ],
-    openInventory: false,
-    herroWeight: 100,
-    totalWeight: 0,
-=======
     hero: {
       x: 1,
       y: 1,
@@ -42,7 +29,6 @@ export default function() {
       '5': { name: 'Gold', weight: 5, class: 'gold' },
       '6': { name: 'Food', weight: 3, class: 'food' }
     },
->>>>>>> master
     terran: [
       ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
       ['1', ' ', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', ' ', '1', ' ', ' ', ' ', '0', ' ', '1'],
