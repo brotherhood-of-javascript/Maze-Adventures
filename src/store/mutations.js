@@ -16,7 +16,7 @@ export const saveNewState = (state, name) => {
 }
 export const removeSavedState = (state, name) => {
   localStorage.removeItem(name)
-
+}
 export const hideOrShowItemWindow = state => {
   state.itemsWindow = !state.itemsWindow
 }
