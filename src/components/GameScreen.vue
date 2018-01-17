@@ -12,7 +12,7 @@
       <div class="menu-bord " v:onkeyup.esc='backTomainMenu'>
         <router-link to="/" class="button button-huge block-mobile">back to main menu</router-link>
       </div>
-      <button class="button block-mobile" @click="getBoxInventory">Inventory</button>
+      <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
   </section>
