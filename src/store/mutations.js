@@ -3,7 +3,9 @@ export const draw = (state, { type, xy }) => {
   state[type] = [...state[type]]
 }
 export const move = (state, { type, xy }) => {
-  state[type] = { x: xy.x, y: xy.y }
+  state[type].x = xy.x
+  state[type].y = xy.y
+
   state.itemsWindow = false
 }
 export const del = (state, { type, xy }) => {
@@ -16,9 +18,9 @@ export const hideOrShowItemWindow = state => {
 export const hideOrShowInventory = state => {
   state.openInventory = !state.openInventory
 }
-export const createNewState = state => {
-  if (localStorage.getItem('quickSave')) {
-    Object.assign(state, JSON.parse(localStorage.getItem('quickSave')))
+export const createNewState = (state, nameKey) => {
+  if (localStorage.getItem(nameKey)) {
+    Object.assign(state, JSON.parse(localStorage.getItem(nameKey)))
   }
 }
 

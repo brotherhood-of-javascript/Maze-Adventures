@@ -15,9 +15,6 @@
       <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
-    <div class="rightcol align-left">
-
-    </div>
   </section>
 </template>
 
@@ -26,7 +23,7 @@ import GameTerran from './GameTerran'
 import Inventory from './Inventory'
 import ItemsWindow from './ItemsWindow'
 
-const globalKey = 'quickSave'
+const globalKey = 'quickSave3'
 
 export default {
   name: 'GameScreen',
@@ -36,14 +33,13 @@ export default {
       return this.$store.dispatch('getBoxInventory')
     },
     quickSave(event) {
-      console.log('event.keyCode', event.keyCode)
       if (event.keyCode === 120) {
         //  f9
         localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
       }
       if (event.keyCode === 118) {
         //  f7
-        this.$store.commit('createNewState')
+        this.$store.commit('createNewState', globalKey)
       }
     }
   },
@@ -52,6 +48,13 @@ export default {
   },
   created() {
     window.addEventListener('keyup', this.quickSave)
+    window.addEventListener('keyup', event => {
+      switch (event.keyCode) {
+        case 27:
+          this.$router.push({ name: 'MainMenu' })
+      }
+    })
+    window.removeEventListener('keyup', event)
   },
   computed: {
     itemsWindow: function() {
