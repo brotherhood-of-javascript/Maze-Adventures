@@ -1,7 +1,7 @@
 <template>
         <ul>
-            <div v-for="x in drawMap">
-                <li v-for="n in x" :id="n.id" :class="n.class"></li>
+            <div v-for="(arr, x) in drawMap">
+                <li v-for="(val, y) in arr" :id="val.id" :class="val.class"><img :src="img" v-if="hero.x===x && hero.y===y"></li>
             </div>
         </ul>
 </template>
@@ -9,50 +9,49 @@
 <script>
 export default {
   created: function() {
-    window.addEventListener('keyup', event => {
+    window.addEventListener('keydown', event => {
       const hero = this.$store.state.hero
+      const terran = this.$store.state.terran
+      const cantWalk = this.$store.state.cantWalk
+      const pickableItems = this.$store.state.pickableItems
       switch (event.keyCode) {
         case 40:
-          if (this.$store.state.terran[hero.x + 1][hero.y] !== ' ') return
-          this.$store.dispatch('heroDelete')
+          if (cantWalk.includes(terran[hero.x + 1][hero.y])) return
           this.$store.dispatch('heroMove', { x: hero.x + 1, y: hero.y })
-          this.$store.dispatch('heroDraw')
           break
         case 38:
-          if (this.$store.state.terran[hero.x - 1][hero.y] !== ' ') return
-          this.$store.dispatch('heroDelete')
+          if (cantWalk.includes(terran[hero.x - 1][hero.y])) return
           this.$store.dispatch('heroMove', { x: hero.x - 1, y: hero.y })
-          this.$store.dispatch('heroDraw')
           break
         case 39:
-          if (this.$store.state.terran[hero.x][hero.y + 1] !== ' ') return
-          this.$store.dispatch('heroDelete')
+          if (cantWalk.includes(terran[hero.x][hero.y + 1])) return
           this.$store.dispatch('heroMove', { x: hero.x, y: hero.y + 1 })
-          this.$store.dispatch('heroDraw')
           break
         case 37:
-          if (this.$store.state.terran[hero.x][hero.y - 1] !== ' ') return
-          this.$store.dispatch('heroDelete')
+          if (cantWalk.includes(terran[hero.x][hero.y - 1])) return
           this.$store.dispatch('heroMove', { x: hero.x, y: hero.y - 1 })
-          this.$store.dispatch('heroDraw')
+          break
+        case 13:
+          if (pickableItems.includes(terran[hero.x][hero.y])) this.$store.dispatch('pickItem')
           break
       }
     })
-    this.$store.dispatch('heroDraw')
   },
   computed: {
     drawMap() {
       return this.$store.getters.mapGetter
+    },
+    hero() {
+      return this.$store.state.hero
     }
+  },
+  data: function() {
+    return { img: this.$store.state.hero.img }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 li {
-  padding: 10px;
-  /* border: solid 1px black; */
   float: left;
   width: 45px;
   height: 45px;

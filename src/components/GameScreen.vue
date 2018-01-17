@@ -5,7 +5,15 @@
         <h3 class="text-huge text-white text-with-subtitle">We can be heroes</h3>
         <h4 class="text-big text-gray">just for one day</h4>
         <GameTerran></GameTerran>
+        <items-window v-show="itemsWindow"/>
       </div>
+    </div>
+    <div class="rightcol align-left">
+      <div class="menu-bord " v:onkeyup.esc='backTomainMenu'>
+        <router-link to="/" class="button button-huge block-mobile">back to main menu</router-link>
+      </div>
+      <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
+      <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
     <div class="rightcol align-left">
      <div class="menu-bord ">
@@ -17,11 +25,34 @@
 </template>
 <script>
 import GameTerran from './GameTerran'
+import Inventory from './Inventory'
+import ItemsWindow from './ItemsWindow'
+
+const globalKey = 'quickSave3'
 
 export default {
   name: 'GameScreen',
-  components: { GameTerran },
-  created: function() {
+  components: { GameTerran, Inventory, ItemsWindow },
+  methods: {
+    getBoxInventory(event) {
+      return this.$store.dispatch('getBoxInventory')
+    },
+    quickSave(event) {
+      if (event.keyCode === 120) {
+        //  f9
+        localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
+      }
+      if (event.keyCode === 118) {
+        //  f7
+        this.$store.commit('createNewState', globalKey)
+      }
+    }
+  },
+  beforeCreate() {
+    //  this.$store.commit('createNewState')
+  },
+  created() {
+    window.addEventListener('keyup', this.quickSave)
     window.addEventListener('keyup', event => {
       switch (event.keyCode) {
         case 27:
@@ -29,6 +60,11 @@ export default {
       }
     })
     window.removeEventListener('keyup', event)
+  },
+  computed: {
+    itemsWindow: function() {
+      return this.$store.state.itemsWindow
+    }
   }
 }
 </script>
