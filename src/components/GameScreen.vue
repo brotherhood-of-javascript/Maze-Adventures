@@ -48,6 +48,13 @@ export default {
   },
   created() {
     window.addEventListener('keyup', this.quickSave)
+    window.addEventListener('keyup', event => {
+      switch (event.keyCode) {
+        case 27:
+          this.$router.push({ name: 'MainMenu' })
+      }
+    })
+    window.removeEventListener('keyup', event)
   },
   computed: {
     itemsWindow: function() {
