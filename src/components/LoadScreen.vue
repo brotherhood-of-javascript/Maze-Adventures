@@ -6,7 +6,7 @@
       <table class="table">
          <thead>
            <tr class="text-small align-left">
-             <th>Name</th>
+             <th>Key-Name</th>
              <th>Date</th>
              </tr>
          </thead>
