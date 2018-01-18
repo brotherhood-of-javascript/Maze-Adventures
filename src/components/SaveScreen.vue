@@ -65,7 +65,6 @@ export default {
         arrKey.push(localStorage.key(i))
       }
     }
-    console.log(arrKey)
     this.keyNames = arrKey
   }
 }
