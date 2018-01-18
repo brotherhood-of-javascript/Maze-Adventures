@@ -34,7 +34,7 @@ export default {
     quickSave(event) {
       if (event.keyCode === 120) {
         //  f9
-        localStorage.save.setItem(globalKey, JSON.stringify(this.$store.state))
+        localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
       }
       if (event.keyCode === 118) {
         //  f7
