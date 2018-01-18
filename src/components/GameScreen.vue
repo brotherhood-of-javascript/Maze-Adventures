@@ -22,7 +22,7 @@ import GameTerran from './GameTerran'
 import Inventory from './Inventory'
 import ItemsWindow from './ItemsWindow'
 
-const globalKey = 'quickSave3'
+const globalKey = 'quickSave'
 
 export default {
   name: 'GameScreen',
@@ -32,6 +32,7 @@ export default {
       return this.$store.dispatch('getBoxInventory')
     },
     quickSave(event) {
+      console.log('event.keyCode', event.keyCode)
       if (event.keyCode === 120) {
         //  f9
         localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
@@ -41,9 +42,6 @@ export default {
         this.$store.commit('createNewState', globalKey)
       }
     }
-  },
-  beforeCreate() {
-    //  this.$store.commit('createNewState')
   },
   created() {
     window.addEventListener('keyup', this.quickSave)

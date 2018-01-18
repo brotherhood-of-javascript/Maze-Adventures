@@ -38,7 +38,7 @@ export const drowBoxInventory = state =>
   state.inventory.map((val, i) =>
     val.map((val, y) => ({
       id: `${i}${y}`,
-      weight: setClassInveroment(val),
+      weight: state.items[val].weight,
       quantity: 1,
       describe: 'some items',
       class: setClassInveroment(val)

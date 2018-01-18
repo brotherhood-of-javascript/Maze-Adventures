@@ -35,7 +35,6 @@ export default {
           if (pickableItems.includes(terran[hero.x][hero.y])) this.$store.dispatch('pickItem')
           break
       }
-      console.log(event.keyCode)
     })
   },
   computed: {
