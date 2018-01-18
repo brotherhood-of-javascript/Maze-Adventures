@@ -5,12 +5,17 @@ export const draw = (state, { type, xy }) => {
 export const move = (state, { type, xy }) => {
   state[type].x = xy.x
   state[type].y = xy.y
-
   state.itemsWindow = false
 }
 export const del = (state, { type, xy }) => {
   state[type][xy.x][xy.y] = ' '
   state[type] = [...state[type]]
+}
+export const saveNewState = (state, name) => {
+  localStorage.setItem(name, JSON.stringify(state))
+}
+export const removeSavedState = (state, name) => {
+  localStorage.removeItem(name)
 }
 export const hideOrShowItemWindow = state => {
   state.itemsWindow = !state.itemsWindow
@@ -23,7 +28,6 @@ export const createNewState = (state, nameKey) => {
     Object.assign(state, JSON.parse(localStorage.getItem(nameKey)))
   }
 }
-
 export const drawItemInInventory = (state, { type, xy, item }) => {
   state[type][xy.x][xy.y] = item
   state[type] = [...state[type]]
