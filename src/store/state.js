@@ -26,9 +26,24 @@ export default function() {
       '1': { name: 'Wall', weight: 0, class: 'wall' },
       '2': { name: 'Monster', weight: 0, class: 'monster' },
       '3': { name: 'Hero', weight: 1, class: 'hero' },
-      '4': { name: 'Diamond', weight: 50, class: 'diamond' },
-      '5': { name: 'Gold', weight: 4, class: 'gold' },
-      '6': { name: 'Food', weight: 1, class: 'food' }
+      '4': {
+        name: 'Diamond',
+        weight: 50,
+        class: 'diamond',
+        info: 'They are known particularly for their use in jewelry, such as rings or necklaces'
+      },
+      '5': {
+        name: 'Gold',
+        weight: 4,
+        class: 'gold',
+        info: 'Apples are extremely rich in important antioxidants, flavanoids, and dietary fiber'
+      },
+      '6': {
+        name: 'Food',
+        weight: 1,
+        class: 'food',
+        info: 'You need only to view the movie Super Size Me to understand how foods impact the body'
+      }
     },
     terran: [
       ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],

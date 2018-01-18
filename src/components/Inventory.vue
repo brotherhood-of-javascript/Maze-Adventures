@@ -1,14 +1,15 @@
 <template>
     <div class="inventory">
         <ul class="inventory-maine" >
-            <li v-for="item in drowBoxInventory">
-                <div  v-for="i in item" :class="`section  ${i.class}`" ></div>
+            <li v-for="item in drowBoxInventory" >
+                <div  v-for="i in item" :class="`section  ${i.class}`" @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" ></div>
             </li>
         </ul>
         <div class="text-medium text-gray background-dark inventory-box">
             You have:{{ this.$store.state.totalWeight }} /{{ this.$store.state.herroWeight }} kilo
         </div>
         <p :class= "classObject" v-show = "this.$store.state.fullBag" >{{ messege }} </p>
+        <p :class= "classInfo" >{{ itemInfo }} </p>
     </div>
 </template>
 
@@ -18,11 +19,25 @@ export default {
     return {
       inventory: this.$store.state.inventory,
       messege: 'Your bag will be is full! Try to find item with less weight',
+      itemInfo: '',
       classObject: {
         'text-medium': true,
         'inventory-box': true,
         'badge-error': true
+      },
+      classInfo: {
+        'text-medium': true,
+        'inventory-box': true,
+        'text-primary': true
       }
+    }
+  },
+  methods: {
+    getInformationItem(val) {
+      return (this.itemInfo = this.$store.state.items[val].info)
+    },
+    cleanItemInfo(event) {
+      return (this.itemInfo = '')
     }
   },
   computed: {
