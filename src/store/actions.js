@@ -3,7 +3,6 @@ export const heroDelete = async ({ state, commit }) => {
 }
 export const heroMove = async ({ commit }, heroCoords) => {
   commit('move', { type: 'hero', xy: { x: heroCoords.x, y: heroCoords.y } })
-  commit('hideDialog', { type: 'showHideDialog' })
 }
 export const heroDraw = async ({ state, commit }) => {
   commit('draw', { type: 'terran', xy: state.hero })
