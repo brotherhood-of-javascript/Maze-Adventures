@@ -57,6 +57,7 @@ export default {
       this.keyNames.splice(this.keyNames.indexOf(name), 1)
     }
   },
+
   beforeCreate() {
     let arrKey = []
     for (var i = 0; i < localStorage.length; i++) {
