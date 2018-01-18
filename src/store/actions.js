@@ -24,11 +24,15 @@ const findEmptyPlace = inventory => {
 export const pickItem = async ({ state, commit }) => {
   commit('hideOrShowItemWindow')
   if (!state.itemsWindow) {
-    commit('drawItemInInventory', {
-      type: 'inventory',
-      xy: findEmptyPlace(state.inventory),
-      item: state.terran[state.hero.x][state.hero.y]
-    })
-    commit('del', { type: 'terran', xy: state.hero })
+    commit('checkingWaightBag', state.terran[state.hero.x][state.hero.y])
+    if (!state.fullBag) {
+      commit('drawItemInInventory', {
+        type: 'inventory',
+        xy: findEmptyPlace(state.inventory),
+        item: state.terran[state.hero.x][state.hero.y]
+      })
+      commit('CalculateItems', state.terran[state.hero.x][state.hero.y])
+      commit('del', { type: 'terran', xy: state.hero })
+    }
   }
 }

@@ -6,9 +6,9 @@
             </li>
         </ul>
         <div class="text-medium text-gray background-dark inventory-box">
-            You have:{{ totalWeight }} /{{ herroWeight }} kilo
+            You have:{{ this.$store.state.totalWeight }} /{{ this.$store.state.herroWeight }} kilo
         </div>
-        <p :class= "classObject" >{{ messege }} </p>
+        <p :class= "classObject" v-show = "this.$store.state.fullBag" >{{ messege }} </p>
     </div>
 </template>
 
@@ -17,13 +17,11 @@ export default {
   data: function() {
     return {
       inventory: this.$store.state.inventory,
-      herroWeight: this.$store.state.herroWeight,
-      totalWeight: this.$store.state.totalWeight,
-      messege: '',
+      messege: 'Your bag will be is full! Try to find item with less weight',
       classObject: {
         'text-medium': true,
         'inventory-box': true,
-        'badge-error': false
+        'badge-error': true
       }
     }
   },
@@ -31,20 +29,6 @@ export default {
     drowBoxInventory() {
       return this.$store.getters.drowBoxInventory
     }
-  },
-  created() {
-    let arr = this.$store.getters.drowBoxInventory
-    arr.map((item, ind) =>
-      item.map(i => {
-        if (i.weight !== ' ' && this.totalWeight < this.herroWeight) {
-          this.totalWeight += 10
-        }
-        if (this.totalWeight === this.herroWeight) {
-          this.messege = 'Your bag is full!'
-          this.classObject['badge-error'] = true
-        }
-      })
-    )
   }
 }
 </script>

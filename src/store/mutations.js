@@ -32,3 +32,14 @@ export const drawItemInInventory = (state, { type, xy, item }) => {
   state[type][xy.x][xy.y] = item
   state[type] = [...state[type]]
 }
+export const CalculateItems = (state, num) => {
+  state.totalWeight += state.items[num].weight
+}
+export const checkingWaightBag = (state, num) => {
+  let culWeight = state.totalWeight + state.items[num].weight
+  if (culWeight > state.herroWeight) {
+    state.fullBag = true
+  } else {
+    state.fullBag = false
+  }
+}
