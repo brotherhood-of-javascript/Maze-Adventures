@@ -40,8 +40,7 @@ export default {
   data: function() {
     return {
       name: '',
-      dataSave: '',
-      keyNames: []
+      dataSave: ''
     }
   },
   methods: {
@@ -66,6 +65,7 @@ export default {
         arrKey.push(localStorage.key(i))
       }
     }
+    console.log(arrKey)
     this.keyNames = arrKey
   }
 }
@@ -76,36 +76,35 @@ export default {
 .title-save-load-menu {
   font-size: 50px;
   padding: 30px 0 40px 0;
-
 }
 .save-btn {
   padding: 10px 80px;
 }
-.table>tbody>tr:hover {
-  background: #547aa0
+.table > tbody > tr:hover {
+  background: #547aa0;
 }
-.input-save-group{
-padding-bottom: 40px;
+.input-save-group {
+  padding-bottom: 40px;
 }
 .save-table {
   font-size: 20px;
 }
 .input {
-    display: inline-block;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    border: 0;
-    font-size: 20px;
-    box-shadow: none;
-    color: #fff;
-    height: 82px;
-    line-height: 44px;
-    margin-bottom: 0;
-    outline: none;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 100%;
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  border: 0;
+  font-size: 20px;
+  box-shadow: none;
+  color: #fff;
+  height: 82px;
+  line-height: 44px;
+  margin-bottom: 0;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
 }
 .input::-webkit-input-placeholder {
   color: #fff;

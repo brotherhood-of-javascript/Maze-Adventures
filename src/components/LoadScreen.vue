@@ -128,4 +128,3 @@ export default {
   background: #547aa0;
 }
 </style>
-
