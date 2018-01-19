@@ -48,7 +48,7 @@ export default function() {
         name: 'Main trasure',
         weight: 1,
         class: 'mainTrasure',
-        info: 'You need only to view the movie Super Size Me to understand how foods impact the body'
+        info: 'If you collect this you win the game'
       }
     },
     terran: [
