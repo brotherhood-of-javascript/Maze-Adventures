@@ -87,4 +87,10 @@ li {
   background-color: #18232f;
   background-size: 100%;
 }
+.mainTrasure {
+  background-image: url('https://www.chitalnya.ru/upload/208/96353343315422.gif');
+  background-repeat: no-repeat;
+  background-color: #18232f;
+  background-size: 100%;
+}
 </style>

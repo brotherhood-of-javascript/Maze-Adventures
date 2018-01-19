@@ -13,7 +13,9 @@
    <div>
       <router-link to="/load" class="button button-huge block-mobile">Load Game</router-link>
    </div>
-
+   <div>
+      <router-link to="/developers" class="button button-huge block-mobile">Developers</router-link>
+   </div>
 
   </div>
 </template>

@@ -14,7 +14,7 @@ export default function() {
       [' ', ' ', ' ', ' ', ' ']
     ],
     cantWalk: ['1', '0', '2'],
-    pickableItems: ['4', '5', '6'],
+    pickableItems: ['4', '5', '6', '7'],
     itemsWindow: false,
     openInventory: false,
     herroWeight: 60,
@@ -43,6 +43,12 @@ export default function() {
         weight: 1,
         class: 'food',
         info: 'You need only to view the movie Super Size Me to understand how foods impact the body'
+      },
+      '7': {
+        name: 'Main trasure',
+        weight: 1,
+        class: 'mainTrasure',
+        info: 'You need only to view the movie Super Size Me to understand how foods impact the body'
       }
     },
     terran: [
@@ -64,7 +70,7 @@ export default function() {
       ['1', '1', '1', '1', '1', '1', '1', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],
       ['1', ' ', ' ', ' ', ' ', ' ', '1', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', '6', '1'],
       ['1', '1', '1', '1', '1', ' ', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', '1'],
-      ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1'],
+      ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '7', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1'],
       ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
     ]
   }
