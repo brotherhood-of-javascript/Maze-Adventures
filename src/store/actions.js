@@ -36,3 +36,5 @@ export const pickItem = async ({ state, commit }) => {
     }
   }
 }
+
+export const getShowOtherMenuNow = async ({ state, commit }) => commit('getShowOtherMenuNow')
