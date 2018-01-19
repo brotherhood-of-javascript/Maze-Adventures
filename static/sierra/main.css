@@ -21,3 +21,6 @@
   background-color: #18232f;
   background-size: 100%;
 }
+.button {
+  min-width: 260px;
+}
