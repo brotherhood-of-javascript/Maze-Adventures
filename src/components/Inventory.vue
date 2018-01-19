@@ -9,7 +9,7 @@
             You have:{{ this.$store.state.totalWeight }} /{{ this.$store.state.herroWeight }} kilo
         </div>
         <p :class= "classObject" v-show = "this.$store.state.fullBag" >{{ messege }} </p>
-        <p :class= "classInfo" >{{ itemInfo }} </p>
+        <p :class= "classInfo" >{{ itemInfo.text }} <br> {{ itemInfo.weigth }} </p>
     </div>
 </template>
 
@@ -34,7 +34,11 @@ export default {
   },
   methods: {
     getInformationItem(val) {
-      return (this.itemInfo = this.$store.state.items[val].info)
+      return (this.itemInfo = {
+        text: this.$store.state.items[val].info,
+        weigth:
+          ' Weight  ' + this.$store.state.items[val].class + ' is: ' + this.$store.state.items[val].weight + ' kg!'
+      })
     },
     cleanItemInfo(event) {
       return (this.itemInfo = '')
