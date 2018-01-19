@@ -14,6 +14,8 @@ export default {
       const terran = this.$store.state.terran
       const cantWalk = this.$store.state.cantWalk
       const pickableItems = this.$store.state.pickableItems
+      const itemsToWin = this.$store.state.itemsToWin
+
       switch (event.keyCode) {
         case 40:
           if (cantWalk.includes(terran[hero.x + 1][hero.y])) return
@@ -32,6 +34,10 @@ export default {
           this.$store.dispatch('heroMove', { x: hero.x, y: hero.y - 1 })
           break
         case 13:
+          if (itemsToWin.includes(terran[hero.x][hero.y])) {
+            this.$store.dispatch('winGame')
+            this.$router.push({ name: 'DevelopersScreen' })
+          }
           if (pickableItems.includes(terran[hero.x][hero.y])) this.$store.dispatch('pickItem')
           break
       }

@@ -27,6 +27,9 @@ export default {
     getShowOtherMenu() {
       return this.$store.dispatch('getShowOtherMenuNow')
     }
+  },
+  created() {
+    this.$store.dispatch('notWinGame')
   }
 }
 </script>

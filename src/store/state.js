@@ -14,12 +14,14 @@ export default function() {
       [' ', ' ', ' ', ' ', ' ']
     ],
     cantWalk: ['1', '0', '2'],
-    pickableItems: ['4', '5', '6', '7'],
+    pickableItems: ['4', '5', '6'],
+    itemsToWin: ['7'],
     itemsWindow: false,
     openInventory: false,
     herroWeight: 60,
     totalWeight: 0,
     fullBag: false,
+    gameWinned: false,
     items: {
       ' ': { name: '', weight: 0, class: '' },
       '0': { name: 'Tree', weight: 0, class: 'tree' },
@@ -46,7 +48,7 @@ export default function() {
       },
       '7': {
         name: 'Main trasure',
-        weight: 1,
+        weight: 0,
         class: 'mainTrasure',
         info: 'If you collect this you win the game'
       }

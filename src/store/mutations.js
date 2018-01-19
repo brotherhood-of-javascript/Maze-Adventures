@@ -51,3 +51,9 @@ export const getShowOtherMenuNow = state => {
   state.start = false
   state.initialState = JSON.stringify(state)
 }
+export const trueWin = state => {
+  state.gameWinned = true
+}
+export const falseWin = state => {
+  state.gameWinned = false
+}
