@@ -44,3 +44,7 @@ export const winGame = async ({ state, commit }) => {
 export const notWinGame = async ({ state, commit }) => {
   commit('falseWin')
 }
+export const dialog = async ({ state, commit }, NPC) => {
+  console.log(NPC.dialog[NPC.dialog.status].message)
+  commit('gnomeSpeak', { dialog: NPC.dialog, links: NPC.dialog[NPC.dialog.status].links, status: NPC.dialog.status })
+}

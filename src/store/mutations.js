@@ -57,3 +57,17 @@ export const trueWin = state => {
 export const falseWin = state => {
   state.gameWinned = false
 }
+export const gnomeSpeak = (state, { dialog, links, status }) => {
+  if (status === 1) {
+    dialog.status = links[0]
+  } else if (status === 2 && dialog.food < 3) {
+    dialog.status = links[1]
+    dialog[links[1]].message += dialog.food
+  } else if (status === 4 && dialog.food < 3) {
+    dialog.status = links[0]
+    dialog[links[0]].message += dialog.food
+    dialog.food++
+  } else if (status === 4 && dialog.food === 3) {
+    dialog.status = links[1]
+  }
+}

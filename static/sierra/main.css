@@ -21,6 +21,12 @@
   background-color: #18232f;
   background-size: 100%;
 }
+.gnome {
+  background-image: url('http://3.bp.blogspot.com/-OgbmYzOUhnY/UYfrEjPnriI/AAAAAAAAAr8/lbOlb5AgBIc/s1600/AnimatedLeprechaunDancing.gif');
+  background-repeat: no-repeat;
+  background-color: #18232f;
+  background-size: 100%;
+}
 .button {
   min-width: 260px;
 }

@@ -13,8 +13,9 @@ export default function() {
       [' ', ' ', ' ', ' ', ' '],
       [' ', ' ', ' ', ' ', ' ']
     ],
-    cantWalk: ['1', '0', '2'],
+    cantWalk: ['1', '0', '2', '8'],
     pickableItems: ['4', '5', '6'],
+    NPC: ['8'],
     itemsToWin: ['7'],
     itemsWindow: false,
     openInventory: false,
@@ -51,6 +52,20 @@ export default function() {
         weight: 0,
         class: 'mainTrasure',
         info: 'If you collect this you win the game'
+      },
+      '8': {
+        name: 'Gnome',
+        weight: 0,
+        class: 'gnome',
+        info: 'If you collect this you win the game',
+        dialog: {
+          1: { message: 'Hello my name is Gnome', links: [2] },
+          2: { message: 'Can you bring me 3 food? And ill pass you to the trasure', links: [3, 4] },
+          3: { message: 'Ok you bring me all items you can go', links: [3] },
+          4: { message: 'I ask you for 3 food but you bring me only ', links: [4, 3] },
+          food: 0,
+          status: 1
+        }
       }
     },
     start: true,
@@ -74,7 +89,7 @@ export default function() {
       ['1', '1', '1', '1', '1', '1', '1', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],
       ['1', ' ', ' ', ' ', ' ', ' ', '1', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', '6', '1'],
       ['1', '1', '1', '1', '1', ' ', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', '1'],
-      ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '7', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1'],
+      ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '7', ' ', ' ', ' ', ' ', ' ', '8', ' ', ' ', ' ', '1'],
       ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
     ]
   }
