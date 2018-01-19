@@ -37,6 +37,7 @@ export const pickItem = async ({ state, commit }) => {
   }
 }
 
+export const getShowOtherMenuNow = async ({ state, commit }) => commit('getShowOtherMenuNow')
 export const winGame = async ({ state, commit }) => {
   commit('trueWin')
 }
