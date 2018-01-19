@@ -41,7 +41,8 @@ export const drowBoxInventory = state =>
       weight: state.items[val].weight,
       quantity: 1,
       describe: 'some items',
-      class: setClassInveroment(val)
+      class: setClassInveroment(val),
+      val: val
     }))
   )
 
