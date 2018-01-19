@@ -36,3 +36,10 @@ export const pickItem = async ({ state, commit }) => {
     }
   }
 }
+
+export const winGame = async ({ state, commit }) => {
+  commit('trueWin')
+}
+export const notWinGame = async ({ state, commit }) => {
+  commit('falseWin')
+}

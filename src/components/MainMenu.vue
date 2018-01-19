@@ -22,7 +22,10 @@
 
 <script>
 export default {
-  name: 'MainMenu'
+  name: 'MainMenu',
+  created() {
+    this.$store.dispatch('notWinGame')
+  }
 }
 </script>
 

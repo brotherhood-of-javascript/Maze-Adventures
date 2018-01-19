@@ -43,3 +43,9 @@ export const checkingWaightBag = (state, num) => {
     state.fullBag = false
   }
 }
+export const trueWin = state => {
+  state.gameWinned = true
+}
+export const falseWin = state => {
+  state.gameWinned = false
+}
