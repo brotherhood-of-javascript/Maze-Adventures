@@ -18,6 +18,7 @@ export default function() {
     NPC: ['8'],
     itemsToWin: ['7'],
     itemsWindow: false,
+    dialogWindow: false,
     openInventory: false,
     herroWeight: 60,
     totalWeight: 0,
@@ -59,12 +60,14 @@ export default function() {
         class: 'gnome',
         info: 'If you collect this you win the game',
         dialog: {
+          0: { message: '', links: [1] },
           1: { message: 'Hello my name is Gnome', links: [2] },
-          2: { message: 'Can you bring me 3 food? And ill pass you to the trasure', links: [3, 4] },
+          2: { message: 'Can you bring me 3 food? And ill pass you to the trasure', links: [3, 4, 5] },
           3: { message: 'Ok you bring me all items you can go', links: [3] },
-          4: { message: 'I ask you for 3 food but you bring me only ', links: [4, 3] },
+          4: { message: 'I ask you for 3 food but you bring me only ', links: [3, 4] },
+          5: { message: 'I ask you for bring food, but you have nothing', links: [3, 4, 5] },
           food: 0,
-          status: 1
+          status: 0
         }
       }
     },

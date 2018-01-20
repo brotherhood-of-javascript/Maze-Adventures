@@ -6,6 +6,7 @@
         <h4 class="text-big text-gray">just for one day</h4>
         <GameTerran></GameTerran>
         <items-window v-show="itemsWindow"/>
+        <dialog-window v-show="dialogWindow"/>
       </div>
     </div>
     <div class="rightcol align-left">
@@ -21,12 +22,13 @@
 import GameTerran from './GameTerran'
 import Inventory from './Inventory'
 import ItemsWindow from './ItemsWindow'
+import DialogWindow from './DialogWindow'
 
 const globalKey = 'quickSave'
 
 export default {
   name: 'GameScreen',
-  components: { GameTerran, Inventory, ItemsWindow },
+  components: { GameTerran, Inventory, ItemsWindow, DialogWindow },
   methods: {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
@@ -55,6 +57,9 @@ export default {
   computed: {
     itemsWindow: function() {
       return this.$store.state.itemsWindow
+    },
+    dialogWindow: function() {
+      return this.$store.state.dialogWindow
     }
   }
 }

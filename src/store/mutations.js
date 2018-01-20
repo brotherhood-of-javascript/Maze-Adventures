@@ -6,6 +6,7 @@ export const move = (state, { type, xy }) => {
   state[type].x = xy.x
   state[type].y = xy.y
   state.itemsWindow = false
+  state.dialogWindow = false
 }
 export const del = (state, { type, xy }) => {
   state[type][xy.x][xy.y] = ' '
@@ -20,6 +21,9 @@ export const removeSavedState = (state, name) => {
 export const hideOrShowItemWindow = state => {
   state.itemsWindow = !state.itemsWindow
 }
+export const ShowDialogWindow = state => {
+  state.dialogWindow = true
+}
 export const hideOrShowInventory = state => {
   state.openInventory = !state.openInventory
 }
@@ -30,6 +34,11 @@ export const createNewState = (state, nameKey) => {
 }
 export const drawItemInInventory = (state, { type, xy, item }) => {
   state[type][xy.x][xy.y] = item
+  // collecting food
+  if (state[type][xy.x][xy.y] === '6') {
+    state.items['8'].dialog.food++
+  }
+  // stop collect
   state[type] = [...state[type]]
 }
 export const CalculateItems = (state, num) => {
@@ -58,16 +67,14 @@ export const falseWin = state => {
   state.gameWinned = false
 }
 export const gnomeSpeak = (state, { dialog, links, status }) => {
-  if (status === 1) {
+  if (status === 0 || status === 1) {
     dialog.status = links[0]
-  } else if (status === 2 && dialog.food < 3) {
+  } else if (dialog.food === 0) {
+    dialog.status = links[2]
+  } else if (dialog.food < 3) {
     dialog.status = links[1]
-    dialog[links[1]].message += dialog.food
-  } else if (status === 4 && dialog.food < 3) {
+  } else if (dialog.food === 3) {
+    if (dialog.status === 3) state.cantWalk[3] = ''
     dialog.status = links[0]
-    dialog[links[0]].message += dialog.food
-    dialog.food++
-  } else if (status === 4 && dialog.food === 3) {
-    dialog.status = links[1]
   }
 }
