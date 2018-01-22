@@ -1,7 +1,7 @@
 <template>
   <div class="section">
    <h2 class="text-big text-gray">Maze Adventures</h2>
-   <div @click="getShowOtherMenu">
+   <div @click="getShowOtherMenu">  
       <router-link to="/game" class="button button-huge block-mobile" >New Game</router-link>
    </div>
     <div>
@@ -11,7 +11,7 @@
       <router-link to="/save" class="button button-huge block-mobile " v-show="!this.$store.state.start">Save Game</router-link>
    </div>
    <div>
-      <router-link to="/load" class="button button-huge block-mobile" v-show="!this.$store.state.start">Load Game</router-link>
+      <router-link to="/load" class="button button-huge block-mobile">Load Game</router-link>
    </div>
    <div>
       <router-link to="/developers" class="button button-huge block-mobile">Developers</router-link>
