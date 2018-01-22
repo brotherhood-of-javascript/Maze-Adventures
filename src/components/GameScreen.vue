@@ -16,7 +16,7 @@
       <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
-    <PopupNewGame v-show="f5"  :msg="message" @sendNo="f5=$event"></PopupNewGame>
+    <PopupNewGame v-show="f5"  :msg="message" @sendNo="f5 = $event"></PopupNewGame>
   </section>
 </template>
 <script>
@@ -42,6 +42,7 @@ export default {
       return this.$store.dispatch('getBoxInventory')
     },
     quickSave(event) {
+      event.preventDefault()
       if (event.keyCode === 120) {
         //  f9
         localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
@@ -50,34 +51,25 @@ export default {
         //  f7
         this.$store.commit('createNewState', globalKey)
       }
+
       if (event.keyCode === 116) {
         event.preventDefault()
-        this.$store.state.start = false
-        console.log('fff', this.$store.state.start)
-        event.stopPropagation()
         this.f5 = true
         this.message = `Are you sure? Are you really want reload page?
         If you push ' yes' you come back on maine menu!`
-      }
-    },
-    getEscape(event) {
-      switch (event.keyCode) {
-        case 27:
-          this.$router.push({ name: 'MainMenu' })
       }
     }
   },
   created() {
     window.addEventListener('keyup', this.quickSave)
-    //  window.addEventListener('keyup', event => {
-
-    //   switch (event.keyCode) {
-    //     case 27:
-    //       this.$router.push({ name: 'MainMenu' })
-    //   }
-    // })
-    window.addEventListener('keyup', this.getEscape)
-    // window.removeEventListener('keyup', event)
+    window.addEventListener('keydown', this.quickSave)
+    window.addEventListener('keyup', event => {
+      switch (event.keyCode) {
+        case 27:
+          this.$router.push({ name: 'MainMenu' })
+      }
+    })
+    window.removeEventListener('keyup', event)
   },
   computed: {
     itemsWindow: function() {

@@ -11,18 +11,18 @@
 export default {
   data() {
     return {
-      warning: '',
-      f5: false
+      warning: ''
     }
   },
   props: ['msg'],
   methods: {
-    getYesAnsver() {
+    getYesAnsver(event) {
       this.$router.push({ name: 'MainMenu' })
+      window.location.reload()
+    },
+    getNoAnsver(event) {
+      this.$emit('sendNo', false)
     }
-    // getNoAnsver() {
-    //   this.$emit('sendNo', false)
-    // }
   }
 }
 </script>

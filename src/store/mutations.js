@@ -55,7 +55,6 @@ export const checkingWaightBag = (state, num) => {
 export const getShowOtherMenuNow = state => {
   if (state.start === false) {
     Object.assign(state, JSON.parse(state.initialState))
-    console.log(state.initialState)
   }
   state.start = false
   state.initialState = JSON.stringify(state)
