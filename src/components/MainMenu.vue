@@ -1,7 +1,8 @@
 <template>
   <div class="section">
    <h2 class="text-big text-gray">Maze Adventures</h2>
-   <div @click="getShowOtherMenu">
+   <div @click="getShowOtherMenu">  
+    <!-- <div> -->
       <router-link to="/game" class="button button-huge block-mobile" >New Game</router-link>
    </div>
     <div>

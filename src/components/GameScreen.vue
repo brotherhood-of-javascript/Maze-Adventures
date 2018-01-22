@@ -15,18 +15,26 @@
       <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
+    <PopupNewGame v-show="f5"  :msg="message" @sendNo="f5=$event"></PopupNewGame>
   </section>
 </template>
 <script>
 import GameTerran from './GameTerran'
 import Inventory from './Inventory'
 import ItemsWindow from './ItemsWindow'
+import PopupNewGame from './PopupNewGame'
 
 const globalKey = 'quickSave'
 
 export default {
   name: 'GameScreen',
-  components: { GameTerran, Inventory, ItemsWindow },
+  data() {
+    return {
+      message: '',
+      f5: false
+    }
+  },
+  components: { GameTerran, Inventory, ItemsWindow, PopupNewGame },
   methods: {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
@@ -40,17 +48,34 @@ export default {
         //  f7
         this.$store.commit('createNewState', globalKey)
       }
-    }
-  },
-  created() {
-    window.addEventListener('keyup', this.quickSave)
-    window.addEventListener('keyup', event => {
+      if (event.keyCode === 116) {
+        event.preventDefault()
+        this.$store.state.start = false
+        console.log('fff', this.$store.state.start)
+        event.stopPropagation()
+        this.f5 = true
+        this.message = `Are you sure? Are you really want reload page?
+        If you push ' yes' you come back on maine menu!`
+      }
+    },
+    getEscape(event) {
       switch (event.keyCode) {
         case 27:
           this.$router.push({ name: 'MainMenu' })
       }
-    })
-    window.removeEventListener('keyup', event)
+    }
+  },
+  created() {
+    window.addEventListener('keyup', this.quickSave)
+    //  window.addEventListener('keyup', event => {
+
+    //   switch (event.keyCode) {
+    //     case 27:
+    //       this.$router.push({ name: 'MainMenu' })
+    //   }
+    // })
+    window.addEventListener('keyup', this.getEscape)
+    // window.removeEventListener('keyup', event)
   },
   computed: {
     itemsWindow: function() {
@@ -66,6 +91,7 @@ div {
   margin: auto;
 }
 .demo-main {
+  position: relative;
   display: flex;
 }
 .rightcol {
