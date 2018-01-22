@@ -16,24 +16,33 @@
       <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
+    <PopupNewGame v-show="f5"  :msg="message" @sendNo="f5 = $event"></PopupNewGame>
   </section>
 </template>
 <script>
 import GameTerran from './GameTerran'
 import Inventory from './Inventory'
 import ItemsWindow from './ItemsWindow'
+import PopupNewGame from './PopupNewGame'
 import DialogWindow from './DialogWindow'
 
 const globalKey = 'quickSave'
 
 export default {
   name: 'GameScreen',
-  components: { GameTerran, Inventory, ItemsWindow, DialogWindow },
+  data() {
+    return {
+      message: '',
+      f5: false
+    }
+  },
+  components: { GameTerran, Inventory, ItemsWindow, PopupNewGame, DialogWindow },
   methods: {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
     },
     quickSave(event) {
+      event.preventDefault()
       if (event.keyCode === 120) {
         //  f9
         localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
@@ -42,10 +51,18 @@ export default {
         //  f7
         this.$store.commit('createNewState', globalKey)
       }
+
+      if (event.keyCode === 116) {
+        event.preventDefault()
+        this.f5 = true
+        this.message = `Are you sure? Are you really want reload page?
+        If you push ' yes' you come back on maine menu!`
+      }
     }
   },
   created() {
     window.addEventListener('keyup', this.quickSave)
+    window.addEventListener('keydown', this.quickSave)
     window.addEventListener('keyup', event => {
       switch (event.keyCode) {
         case 27:
@@ -71,6 +88,7 @@ div {
   margin: auto;
 }
 .demo-main {
+  position: relative;
   display: flex;
 }
 .rightcol {
