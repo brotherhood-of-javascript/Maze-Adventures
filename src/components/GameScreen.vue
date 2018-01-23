@@ -55,7 +55,7 @@ export default {
         event.preventDefault()
         this.f5 = true
         this.message = `Are you sure? Are you really want reload page?
-        If you push ' yes' you come back on maine menu!`
+        If you push ' yes' you come back on << main menu >>!`
       }
     }
   },
