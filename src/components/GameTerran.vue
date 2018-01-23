@@ -9,6 +9,7 @@
 <script>
 import heroRunEvent from '../events/heroRun'
 export default {
+  name: 'GameTerran',
   created: function() {
     window.addEventListener('keydown', this.heroRun)
   },

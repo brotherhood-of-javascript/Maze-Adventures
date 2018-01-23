@@ -16,7 +16,7 @@
       <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
-    <PopupNewGame v-show="f5"  :msg="message" @sendNo="f5 = $event"></PopupNewGame>
+    <PopupNewGame v-show="f5"  :msg="message" route="MainMenu" @sendNo="f5 = $event"></PopupNewGame>
   </section>
 </template>
 <script>
