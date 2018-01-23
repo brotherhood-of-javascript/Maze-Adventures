@@ -42,7 +42,6 @@ export default {
       return this.$store.dispatch('getBoxInventory')
     },
     quickSave(event) {
-      event.preventDefault()
       if (event.keyCode === 120) {
         //  f9
         localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
