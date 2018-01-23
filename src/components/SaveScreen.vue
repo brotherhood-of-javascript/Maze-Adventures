@@ -83,7 +83,7 @@
       remove(names) {
         for (let i = 0; i < this.saveObjectsArray.length; i++) {
           if (this.saveObjectsArray[i].id === names) {
-            this.saveObjectsArray.splice(this.saveObjectsArray.indexOf(names), 1)
+            this.saveObjectsArray.splice(i, 1)
             this.$store.commit('saveNewState', {key: globalSave, value: this.saveObjectsArray})
             break
           }
