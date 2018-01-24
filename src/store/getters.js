@@ -16,3 +16,5 @@ export const drowBoxInventory = state =>
 export const itemGetter = state => state.items[state.terran[state.hero.x][state.hero.y]]
 
 export const dialogGetter = state => state.items['8']
+
+export const globalKey = () => 'saveKey'
