@@ -10,7 +10,7 @@
              </tr>
          </thead>
       <tbody>
-        <tr v-for="load in allSaves" class="keyName" @click="choseSave(load.state)">
+        <tr v-for="load in allSaves" class="keyName" @click="choseSave(load.state, load.id)">
           <td> {{load.id}}</td>
           <td> {{load.date}}</td>
           <td><button 
@@ -21,6 +21,7 @@
         </tr>
       </tbody>
     </table>
+    <div class="text-white text-medium" v-show="currentName!=''">Game to load {{currentName}}</div>
     <div class="col-xs-12">
       <button
         class="button button-primary button-big block-mobile save-btn" @click="loadGame"
@@ -34,12 +35,14 @@ export default {
   data: function() {
     return {
       allSaves: JSON.parse(localStorage.saveKey),
-      currentSave: {}
+      currentSave: {},
+      currentName: ''
     }
   },
   methods: {
-    choseSave: function(curGame) {
-      this.currentSave = curGame
+    choseSave: function(curLoad, curName) {
+      this.currentSave = curLoad
+      this.currentName = curName
     },
     loadGame: function() {
       this.$store.commit('loaderGame', { loadedGame: this.currentSave })
