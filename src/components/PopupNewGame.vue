@@ -9,16 +9,11 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      warning: ''
-    }
-  },
-  props: ['msg'],
+  props: ['msg', 'route'],
   methods: {
     getYesAnsver(event) {
-      this.$router.push({ name: 'MainMenu' })
-      window.location.reload()
+      this.$router.push({ name: this.route })
+      if (this.route === 'MainMenu') window.location.reload()
     },
     getNoAnsver(event) {
       this.$emit('sendNo', false)
