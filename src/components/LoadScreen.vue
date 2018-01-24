@@ -76,8 +76,11 @@ export default {
     }
   },
   beforeCreate() {
+    //console.log('Storage.key(i)', Storage.key(i))
+
     let arrKey = []
     for (var i = 0; i < localStorage.length; i++) {
+      console.log('Storage.key(i)', localStorage.key(i))
       arrKey.push(localStorage.key(i))
     }
     arrKey.shift()

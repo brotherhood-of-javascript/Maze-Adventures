@@ -26,8 +26,7 @@ import ItemsWindow from './ItemsWindow'
 import PopupNewGame from './PopupNewGame'
 import DialogWindow from './DialogWindow'
 
-const globalKey = 'quickSave'
-
+const globalKey = 'quickSave3'
 export default {
   name: 'GameScreen',
   data() {
@@ -42,11 +41,15 @@ export default {
       return this.$store.dispatch('getBoxInventory')
     },
     quickSave(event) {
-      event.preventDefault()
       if (event.keyCode === 120) {
         //  f9
         localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
+        // Storage.prototype.setObj = function(key, obj) {
+        //   return this.setItem(key, JSON.stringify(obj))
+        // }
+        // localStorage.setObj(globalKey, this.$store.state)
       }
+
       if (event.keyCode === 118) {
         //  f7
         this.$store.commit('createNewState', globalKey)
