@@ -1,14 +1,15 @@
 <template>
     <div class="inventory">
         <ul class="inventory-maine" >
-            <li v-for="item in drowBoxInventory">
-                <div  v-for="i in item" :class="`section  ${i.class}`" ></div>
+            <li v-for="item in drowBoxInventory" >
+                <div  v-for="i in item" :class="`section  ${i.class}`" @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" ></div>
             </li>
         </ul>
         <div class="text-medium text-gray background-dark inventory-box">
-            You have:{{ totalWeight }} /{{ herroWeight }} kilo
+            You have:{{ this.$store.state.totalWeight }} /{{ this.$store.state.herroWeight }} kilo
         </div>
-        <p :class= "classObject" >{{ messege }} </p>
+        <p :class= "classObject" v-show = "this.$store.state.fullBag" >{{ messege }} </p>
+        <p :class= "classInfo" >{{ itemInfo.text }} <br> {{ itemInfo.weigth }} </p>
     </div>
 </template>
 
@@ -17,34 +18,36 @@ export default {
   data: function() {
     return {
       inventory: this.$store.state.inventory,
-      herroWeight: this.$store.state.herroWeight,
-      totalWeight: this.$store.state.totalWeight,
-      messege: '',
+      messege: 'Your bag will be is full! Try to find item with less weight',
+      itemInfo: '',
       classObject: {
         'text-medium': true,
         'inventory-box': true,
-        'badge-error': false
+        'badge-error': true
+      },
+      classInfo: {
+        'text-medium': true,
+        'inventory-box': true,
+        'text-primary': true
       }
+    }
+  },
+  methods: {
+    getInformationItem(val) {
+      return (this.itemInfo = {
+        text: this.$store.state.items[val].info,
+        weigth:
+          ' Weight  ' + this.$store.state.items[val].class + ' is: ' + this.$store.state.items[val].weight + ' kg!'
+      })
+    },
+    cleanItemInfo(event) {
+      return (this.itemInfo = '')
     }
   },
   computed: {
     drowBoxInventory() {
       return this.$store.getters.drowBoxInventory
     }
-  },
-  created() {
-    let arr = this.$store.getters.drowBoxInventory
-    arr.map((item, ind) =>
-      item.map(i => {
-        if (i.weight !== ' ' && this.totalWeight < this.herroWeight) {
-          this.totalWeight += 10
-        }
-        if (this.totalWeight === this.herroWeight) {
-          this.messege = 'Your bag is full!'
-          this.classObject['badge-error'] = true
-        }
-      })
-    )
   }
 }
 </script>
@@ -84,6 +87,12 @@ li {
 }
 .food {
   background-image: url('http://moziru.com/images/drawn-dougnut-transparent-background-5.gif');
+  background-repeat: no-repeat;
+  background-color: #18232f;
+  background-size: 100%;
+}
+.mainTrasure {
+  background-image: url('https://www.chitalnya.ru/upload/208/96353343315422.gif');
   background-repeat: no-repeat;
   background-color: #18232f;
   background-size: 100%;

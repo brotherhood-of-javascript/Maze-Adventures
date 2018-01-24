@@ -6,6 +6,7 @@
         <h4 class="text-big text-gray">just for one day</h4>
         <GameTerran></GameTerran>
         <items-window v-show="itemsWindow"/>
+        <dialog-window v-show="dialogWindow"/>
       </div>
     </div>
     <div class="rightcol align-left">
@@ -15,24 +16,27 @@
       <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
     </div>
-    <div class="rightcol align-left">
-     <div class="menu-bord ">
-        <router-link to="/" class="button button-huge block-mobile">back to main menu</router-link>
-      </div>
-      <button class="button button-huge block-mobile" >Inventory</button>
-    </div>
+    <PopupNewGame v-show="f5"  :msg="message" route="MainMenu" @sendNo="f5 = $event"></PopupNewGame>
   </section>
 </template>
 <script>
 import GameTerran from './GameTerran'
 import Inventory from './Inventory'
 import ItemsWindow from './ItemsWindow'
+import PopupNewGame from './PopupNewGame'
+import DialogWindow from './DialogWindow'
 
-const globalKey = 'quickSave3'
+const globalKey = 'quickSave'
 
 export default {
   name: 'GameScreen',
-  components: { GameTerran, Inventory, ItemsWindow },
+  data() {
+    return {
+      message: '',
+      f5: false
+    }
+  },
+  components: { GameTerran, Inventory, ItemsWindow, PopupNewGame, DialogWindow },
   methods: {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
@@ -46,13 +50,18 @@ export default {
         //  f7
         this.$store.commit('createNewState', globalKey)
       }
+
+      if (event.keyCode === 116) {
+        event.preventDefault()
+        this.f5 = true
+        this.message = `Are you sure? Are you really want reload page?
+        If you push ' yes' you come back on << main menu >>!`
+      }
     }
-  },
-  beforeCreate() {
-    //  this.$store.commit('createNewState')
   },
   created() {
     window.addEventListener('keyup', this.quickSave)
+    window.addEventListener('keydown', this.quickSave)
     window.addEventListener('keyup', event => {
       switch (event.keyCode) {
         case 27:
@@ -64,6 +73,9 @@ export default {
   computed: {
     itemsWindow: function() {
       return this.$store.state.itemsWindow
+    },
+    dialogWindow: function() {
+      return this.$store.state.dialogWindow
     }
   }
 }
@@ -75,6 +87,7 @@ div {
   margin: auto;
 }
 .demo-main {
+  position: relative;
   display: flex;
 }
 .rightcol {

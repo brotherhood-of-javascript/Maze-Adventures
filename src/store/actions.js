@@ -1,12 +1,15 @@
 export const heroDelete = async ({ state, commit }) => {
   commit('del', { type: 'terran', xy: state.hero })
 }
+
 export const heroMove = async ({ commit }, heroCoords) => {
   commit('move', { type: 'hero', xy: { x: heroCoords.x, y: heroCoords.y } })
 }
+
 export const heroDraw = async ({ state, commit }) => {
   commit('draw', { type: 'terran', xy: state.hero })
 }
+
 export const getBoxInventory = async ({ state, commit }) => {
   commit('hideOrShowInventory')
 }
@@ -17,14 +20,31 @@ const findEmptyPlace = inventory => {
     }
   }
 }
+
 export const pickItem = async ({ state, commit }) => {
   commit('hideOrShowItemWindow')
   if (!state.itemsWindow) {
-    commit('drawItemInInventory', {
-      type: 'inventory',
-      xy: findEmptyPlace(state.inventory),
-      item: state.terran[state.hero.x][state.hero.y]
-    })
-    commit('del', { type: 'terran', xy: state.hero })
+    commit('checkingWaightBag', state.terran[state.hero.x][state.hero.y])
+    if (!state.fullBag) {
+      commit('drawItemInInventory', {
+        type: 'inventory',
+        xy: findEmptyPlace(state.inventory),
+        item: state.terran[state.hero.x][state.hero.y]
+      })
+      commit('CalculateItems', state.terran[state.hero.x][state.hero.y])
+      commit('del', { type: 'terran', xy: state.hero })
+    }
   }
+}
+
+export const getShowOtherMenuNow = async ({ state, commit }) => commit('getShowOtherMenuNow')
+export const winGame = async ({ state, commit }) => {
+  commit('trueWin')
+}
+export const notWinGame = async ({ state, commit }) => {
+  commit('falseWin')
+}
+export const dialog = async ({ state, commit }, NPC) => {
+  commit('ShowDialogWindow')
+  commit('gnomeSpeak', { dialog: NPC.dialog, links: NPC.dialog[NPC.dialog.status].links, status: NPC.dialog.status })
 }

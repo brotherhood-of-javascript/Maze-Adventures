@@ -7,35 +7,11 @@
 </template>
 
 <script>
+import heroRunEvent from '../events/heroRun'
 export default {
+  name: 'GameTerran',
   created: function() {
-    window.addEventListener('keydown', event => {
-      const hero = this.$store.state.hero
-      const terran = this.$store.state.terran
-      const cantWalk = this.$store.state.cantWalk
-      const pickableItems = this.$store.state.pickableItems
-      switch (event.keyCode) {
-        case 40:
-          if (cantWalk.includes(terran[hero.x + 1][hero.y])) return
-          this.$store.dispatch('heroMove', { x: hero.x + 1, y: hero.y })
-          break
-        case 38:
-          if (cantWalk.includes(terran[hero.x - 1][hero.y])) return
-          this.$store.dispatch('heroMove', { x: hero.x - 1, y: hero.y })
-          break
-        case 39:
-          if (cantWalk.includes(terran[hero.x][hero.y + 1])) return
-          this.$store.dispatch('heroMove', { x: hero.x, y: hero.y + 1 })
-          break
-        case 37:
-          if (cantWalk.includes(terran[hero.x][hero.y - 1])) return
-          this.$store.dispatch('heroMove', { x: hero.x, y: hero.y - 1 })
-          break
-        case 13:
-          if (pickableItems.includes(terran[hero.x][hero.y])) this.$store.dispatch('pickItem')
-          break
-      }
-    })
+    window.addEventListener('keydown', this.heroRun)
   },
   computed: {
     drawMap() {
@@ -46,7 +22,13 @@ export default {
     }
   },
   data: function() {
-    return { img: this.$store.state.hero.img }
+    return {
+      img: this.$store.state.hero.img,
+      heroRun: heroRunEvent.bind(this)
+    }
+  },
+  beforeDestroy: function() {
+    window.removeEventListener('keydown', this.heroRun)
   }
 }
 </script>

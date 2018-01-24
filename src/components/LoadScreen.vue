@@ -9,22 +9,22 @@
              <th>Remove</th>
              </tr>
          </thead>
-      <tbody @click="chooseLoader">
-        <tr v-for="item in keyNames" class="keyName">
-          <td>{{ item }}</td>
-          <td>{{ date }}</td>
+      <tbody>
+        <tr v-for="load in allSaves" class="keyName" @click="choseSave(load.state, load.id)">
+          <td> {{load.id}}</td>
+          <td> {{load.date}}</td>
           <td><button 
                 class="button button-red button-small block-mobile remove-btn"
-                @click="getRemove"
+               
               >remove</button>
           </td> 
         </tr>
       </tbody>
     </table>
+    <div class="text-white text-medium" v-show="currentName!=''">Game to load {{currentName}}</div>
     <div class="col-xs-12">
       <button
-        class="button button-primary button-big block-mobile save-btn"
-        @click="getLoad"
+        class="button button-primary button-big block-mobile save-btn" @click="loadGame"
       >Load</button>
     </div>  
   </section>
@@ -34,56 +34,21 @@ export default {
   name: 'LoadScreen',
   data: function() {
     return {
-      key: '',
-      date: '13.01.2018'
+      allSaves: JSON.parse(localStorage.saveKey),
+      currentSave: {},
+      currentName: ''
     }
   },
   methods: {
-    chooseLoader() {
-      let target = (event && event.target) || event.srcElement
-      if (target.parentNode.classList.contains('keyName')) {
-        let boxContainer = target.parentNode.parentNode.children
-
-        for (let i = 0; i < boxContainer.length; i++) {
-          if (boxContainer[i].classList.contains('choose')) {
-            boxContainer[i].classList.remove('choose')
-          }
-        }
-        target.parentNode.classList.add('choose')
-      }
+    choseSave: function(curLoad, curName) {
+      this.currentSave = curLoad
+      this.currentName = curName
     },
-    getLoad(event) {
-      let key = ''
-      if (event.target.tagName.toLowerCase() === 'button') {
-        let boxContainer = document.querySelector('tbody').children
-
-        for (let i = 0; i < boxContainer.length; i++) {
-          if (boxContainer[i].classList.contains('choose')) {
-            key = boxContainer[i].firstElementChild.innerText
-          }
-        }
-        this.$store.commit('createNewState', key)
-        this.$router.push({ name: 'GameScreen' })
-      }
-    },
-    getRemove(event) {
-      let boxAll = document.querySelector('tbody')
-      let boxContainer = event.target.parentNode.parentNode
-      let key = boxContainer.firstElementChild.innerText
-
-      localStorage.removeItem(key)
-      boxAll.removeChild(boxContainer)
+    loadGame: function() {
+      this.$store.commit('loaderGame', { loadedGame: this.currentSave })
+      this.$router.push({ name: 'GameScreen' })
     }
-  },
-  beforeCreate() {
-    let arrKey = []
-    for (var i = 0; i < localStorage.length; i++) {
-      arrKey.push(localStorage.key(i))
-    }
-    arrKey.shift()
-    this.keyNames = arrKey
-  },
-  created() {}
+  }
 }
 </script>
 
@@ -128,4 +93,3 @@ export default {
   background: #547aa0;
 }
 </style>
-
