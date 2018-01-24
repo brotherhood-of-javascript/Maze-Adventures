@@ -18,6 +18,9 @@ export const saveNewState = (state, { key, value }) => {
 export const removeSavedState = (state, name) => {
   localStorage.removeItem(name)
 }
+export const loadNewState = (state, {key, value}) => {
+  JSON.parse(localStorage.getItem(key, JSON.stringify(value)))
+}
 export const hideOrShowItemWindow = state => {
   state.itemsWindow = !state.itemsWindow
 }
