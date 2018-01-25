@@ -1,3 +1,4 @@
+import * as classes from './gameclasses'
 export default function() {
   return {
     cells: [{ text: 'foo' }, { text: 'bazz' }, { text: 'bar' }],
@@ -25,41 +26,31 @@ export default function() {
     fullBag: false,
     gameWinned: false,
     items: {
-      ' ': { name: '', weight: 0, class: '' },
-      '0': { name: 'Tree', weight: 0, class: 'tree' },
-      '1': { name: 'Wall', weight: 0, class: 'wall' },
-      '2': { name: 'Monster', weight: 0, class: 'monster' },
-      '3': { name: 'Hero', weight: 1, class: 'hero' },
-      '4': {
-        name: 'Diamond',
-        weight: 50,
-        class: 'diamond',
-        info: 'They are known particularly for their use in jewelry, such as rings or necklaces'
-      },
-      '5': {
-        name: 'Gold',
-        weight: 4,
-        class: 'gold',
-        info: 'Apples are extremely rich in important antioxidants, flavanoids, and dietary fiber'
-      },
-      '6': {
-        name: 'Food',
-        weight: 1,
-        class: 'food',
-        info: 'You need only to view the movie Super Size Me to understand how foods impact the body'
-      },
-      '7': {
-        name: 'Main trasure',
-        weight: 0,
-        class: 'mainTrasure',
-        info: 'If you collect this you win the game'
-      },
-      '8': {
-        name: 'Gnome',
-        weight: 0,
-        class: 'gnome',
-        info: 'If you collect this you win the game',
-        dialog: {
+      ' ': new classes.Items('', 0, ''),
+      '0': new classes.Items('Tree', 0, 'tree'),
+      '1': new classes.Items('Wall', 0, 'wall'),
+      '2': new classes.Items('Monster', 0, 'monster'),
+      '4': new classes.Items(
+        'Diamond',
+        50,
+        'diamond',
+        'They are known particularly for their use in jewelry, such as rings or necklaces'
+      ),
+      '5': new classes.Items(
+        'Gold',
+        4,
+        'gold',
+        'Apples are extremely rich in important antioxidants, flavanoids, and dietary fiber'
+      ),
+      '6': new classes.Items(
+        'Food',
+        1,
+        'food',
+        'You need only to view the movie Super Size Me to understand how foods impact the body'
+      ),
+      '7': new classes.Items('Main trasure', 0, 'mainTrasure', 'If you collect this you win the game'),
+      '8': (() => {
+        const gnome = new classes.Dialog({
           0: { message: '', links: [1] },
           1: { message: 'Hello my name is Gnome', links: [2] },
           2: { message: 'Can you bring me 3 food? And i will pass you to the treasure', links: [3, 4, 5] },
@@ -68,8 +59,13 @@ export default function() {
           5: { message: 'I ask you for bring food, but you have nothing', links: [3, 4, 5] },
           food: 0,
           status: 0
-        }
-      }
+        })
+        gnome.name = 'Gnome'
+        gnome.weight = 0
+        gnome.class = 'gnome'
+        gnome.info = 'If you collect this you win the game'
+        return gnome
+      })()
     },
     start: true,
     initialState: '',

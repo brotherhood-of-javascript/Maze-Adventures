@@ -18,7 +18,7 @@ export const saveNewState = (state, { key, value }) => {
 export const removeSavedState = (state, name) => {
   localStorage.removeItem(name)
 }
-export const loadNewState = (state, {key, value}) => {
+export const loadNewState = (state, { key, value }) => {
   JSON.parse(localStorage.getItem(key, JSON.stringify(value)))
 }
 export const hideOrShowItemWindow = state => {
@@ -72,6 +72,7 @@ export const trueWin = state => {
 export const falseWin = state => {
   state.gameWinned = false
 }
+
 export const gnomeSpeak = (state, { dialog, links, status }) => {
   if (status === 0 || status === 1) {
     dialog.status = links[0]
