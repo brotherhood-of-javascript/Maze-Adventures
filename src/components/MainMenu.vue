@@ -2,7 +2,7 @@
   <div class="section">
    <h2 class="text-big text-gray">Maze Adventures</h2>
    <div @click="getShowOtherMenu">  
-      <router-link to="/game" class="button button-huge block-mobile" >New Game</router-link>
+      <div class="button button-huge block-mobile" @click="newGame">New Game</div>
    </div>
     <div>
       <router-link to="/game" class="button button-huge block-mobile resume button-red" v-show="!this.$store.state.start">Resume</router-link>
@@ -16,16 +16,28 @@
    <div>
       <router-link to="/developers" class="button button-huge block-mobile">Developers</router-link>
    </div>
+   <popup-new-game v-show="warning" msg="Do you want to start new game? Unsaved progress will be discarded"  @sendNo="warning = $event"  route="GameScreen"/>
 
   </div>
 </template>
 
 <script>
+import PopupNewGame from './PopupNewGame'
 export default {
+  components: { PopupNewGame },
   name: 'MainMenu',
+  data: function() {
+    return {
+      warning: false
+    }
+  },
   methods: {
     getShowOtherMenu() {
       return this.$store.dispatch('getShowOtherMenuNow')
+    },
+    newGame: function() {
+      this.warning = !this.$store.state.start
+      if (!this.warning) this.$router.push({ name: 'GameScreen' })
     }
   },
   created() {
