@@ -31,6 +31,10 @@ export const hideOrShowInventory = state => {
   state.openInventory = !state.openInventory
 }
 export const createNewState = (state, nameKey) => {
+  // Storage.prototype.getObj = function(nameKey) {
+  //   return JSON.parse(this.getItem(nameKey))
+  // }
+  // Object.assign(state, localStorage.getObj(nameKey))
   if (localStorage.getItem(nameKey)) {
     Object.assign(state, JSON.parse(localStorage.getItem(nameKey)))
   }
@@ -83,4 +87,7 @@ export const gnomeSpeak = (state, { dialog, links, status }) => {
 }
 export const loaderGame = (state, { loadedGame }) => {
   Object.assign(state, JSON.parse(loadedGame))
+}
+export const drowConversation = (state, dialog) => {
+  state.jurnalConversation.push(dialog)
 }

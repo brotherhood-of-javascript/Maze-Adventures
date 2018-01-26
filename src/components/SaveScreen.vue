@@ -94,16 +94,14 @@ export default {
         }
       }
     },
-    remove(name) {
-      this.saveObjectsArray = this.saveObjectsArray.filter(val => val.id !== name)
-      this.$store.commit('saveNewState', { key: globalSave, value: this.saveObjectsArray })
-      //   for (let i = 0; i < this.saveObjectsArray.length; i++) {
-      //     if (this.saveObjectsArray[i].id === names) {
-      //       this.saveObjectsArray.splice(i, 1)
-      //       this.$store.commit('saveNewState', { key: globalSave, value: this.saveObjectsArray })
-      //       break
-      //     }
-      //   }
+    remove(names) {
+      for (let i = 0; i < this.saveObjectsArray.length; i++) {
+        if (this.saveObjectsArray[i].id === names) {
+          this.saveObjectsArray.splice(i, 1)
+          this.$store.commit('saveNewState', { key: globalSave, value: this.saveObjectsArray })
+          break
+        }
+      }
     }
   },
   created() {

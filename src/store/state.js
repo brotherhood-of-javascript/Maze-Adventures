@@ -53,7 +53,7 @@ export default function() {
         const gnome = new classes.Dialog({
           0: { message: '', links: [1] },
           1: { message: 'Hello my name is Gnome', links: [2] },
-          2: { message: 'Can you bring me 3 food? And ill pass you to the trasure', links: [3, 4, 5] },
+          2: { message: 'Can you bring me 3 food? And i will pass you to the treasure', links: [3, 4, 5] },
           3: { message: 'Ok you bring me all items you can go', links: [3] },
           4: { message: 'I ask you for 3 food but you bring me only ', links: [3, 4] },
           5: { message: 'I ask you for bring food, but you have nothing', links: [3, 4, 5] },
@@ -67,6 +67,7 @@ export default function() {
         return gnome
       })()
     },
+    jurnalConversation: [],
     start: true,
     initialState: '',
     terran: [
