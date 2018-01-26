@@ -67,6 +67,7 @@ export default function() {
         return gnome
       })()
     },
+    jurnalConversation: [],
     start: true,
     initialState: '',
     terran: [

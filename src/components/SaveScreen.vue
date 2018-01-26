@@ -37,104 +37,118 @@
 </template>
 
 <script>
-  const globalSave = 'saveKey'
-  export default {
-    name: 'SaveScreen',
-    data: function() {
-      return {
-        showResaveBtn: '',
-        currentName: '',
-        name: '',
-        dataSave: '',
-        saveObjectsArray: []
+const globalSave = 'saveKey'
+export default {
+  name: 'SaveScreen',
+  data: function() {
+    return {
+      showResaveBtn: '',
+      currentName: '',
+      name: '',
+      dataSave: '',
+      saveObjectsArray: []
+    }
+  },
+  methods: {
+    takeСurrentName(names) {
+      this.currentName = names
+      this.name = names
+    },
+    getFormattedDate(date) {
+      return (
+        date.getFullYear() +
+        '-' +
+        (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : '' + (date.getMonth() + 1)) +
+        '-' +
+        (date.getDate() < 10 ? '0' + date.getDate() : '' + date.getDate()) +
+        ' ' +
+        (date.getHours() < 10 ? '0' + date.getHours() : '' + date.getHours()) +
+        ':' +
+        (date.getMinutes() < 10 ? '0' + date.getMinutes() : '' + date.getMinutes())
+      )
+    },
+    save() {
+      if (this.name !== '') {
+        let saveObject = {
+          id: this.name,
+          state: JSON.stringify(this.$store.state),
+          date: this.getFormattedDate(new Date())
+        }
+        this.saveObjectsArray.push(saveObject)
+        this.$store.commit('saveNewState', { key: globalSave, value: this.saveObjectsArray })
+        this.name = ''
+        this.dataSave = ''
       }
     },
-    methods: {
-      takeСurrentName(names) {
-        this.currentName = names
-        this.name = names
-      },
-      getFormattedDate(date) {
-        return date.getFullYear() + '-' + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : '' + (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : '' + date.getDate()) + ' ' + (date.getHours() < 10 ? '0' + date.getHours() : '' + date.getHours()) + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : '' + date.getMinutes())
-      },
-      save() {
-        if (this.name !== '') {
-          let saveObject = {
-            id: this.name,
+    reSave() {
+      for (let i = 0; i < this.saveObjectsArray.length; i++) {
+        if (this.saveObjectsArray[i].id === this.currentName) {
+          this.saveObjectsArray[i] = {
             state: JSON.stringify(this.$store.state),
+            id: this.name,
             date: this.getFormattedDate(new Date())
           }
-          this.saveObjectsArray.push(saveObject)
-          this.$store.commit('saveNewState', {key: globalSave, value: this.saveObjectsArray})
+          this.$store.commit('saveNewState', { key: globalSave, value: this.saveObjectsArray })
           this.name = ''
-          this.dataSave = ''
-        }
-      },
-      reSave() {
-        for (let i = 0; i < this.saveObjectsArray.length; i++) {
-          if (this.saveObjectsArray[i].id === this.currentName) {
-            this.saveObjectsArray[i] = {state: JSON.stringify(this.$store.state), id: this.name, date: this.getFormattedDate(new Date())}
-            this.$store.commit('saveNewState', {key: globalSave, value: this.saveObjectsArray})
-            this.name = ''
-            this.showResaveBtn = false
-          }
-        }
-      },
-      remove(names) {
-        for (let i = 0; i < this.saveObjectsArray.length; i++) {
-          if (this.saveObjectsArray[i].id === names) {
-            this.saveObjectsArray.splice(i, 1)
-            this.$store.commit('saveNewState', {key: globalSave, value: this.saveObjectsArray})
-            break
-          }
+          this.showResaveBtn = false
         }
       }
     },
-    created() {
-      let saveArray = localStorage.getItem(globalSave)
-      if (saveArray) {
-        this.saveObjectsArray = JSON.parse(saveArray)
+    remove(names) {
+      for (let i = 0; i < this.saveObjectsArray.length; i++) {
+        if (this.saveObjectsArray[i].id === names) {
+          this.saveObjectsArray.splice(i, 1)
+          this.$store.commit('saveNewState', { key: globalSave, value: this.saveObjectsArray })
+          break
+        }
       }
     }
+  },
+  created() {
+    let saveArray = localStorage.getItem(globalSave)
+    if (saveArray) {
+      this.saveObjectsArray = JSON.parse(saveArray)
+    }
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .title-save-load-menu {
-    font-size: 50px;
-    padding: 30px 0 40px 0;
-  }
-  .save-btn {
-    padding: 10px 80px;
-  }
-  .table>tbody>tr:hover {
-    background: #547aa0
-  }
-  .input-save-group{
-    padding-bottom: 40px;
-  }
-  .save-table {
-    font-size: 20px;
-  }
-  .input {
-    display: inline-block;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    border: 0;
-    font-size: 20px;
-    box-shadow: none;
-    color: #fff;
-    height: 82px;
-    line-height: 44px;
-    margin-bottom: 0;
-    outline: none;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 100%;
-  }
-  .input::-webkit-input-placeholder {
-    color: #fff;
-  }
+.title-save-load-menu {
+  font-size: 50px;
+  padding: 30px 0 40px 0;
+}
+.save-btn {
+  padding: 10px 80px;
+}
+.table > tbody > tr:hover {
+  background: #547aa0;
+}
+.input-save-group {
+  padding-bottom: 40px;
+}
+.save-table {
+  font-size: 20px;
+}
+.input {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  border: 0;
+  font-size: 20px;
+  box-shadow: none;
+  color: #fff;
+  height: 82px;
+  line-height: 44px;
+  margin-bottom: 0;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+.input::-webkit-input-placeholder {
+  color: #fff;
+}
 </style>

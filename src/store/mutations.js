@@ -88,3 +88,6 @@ export const gnomeSpeak = (state, { dialog, links, status }) => {
 export const loaderGame = (state, { loadedGame }) => {
   Object.assign(state, JSON.parse(loadedGame))
 }
+export const drowConversation = (state, dialog) => {
+  state.jurnalConversation.push(dialog)
+}

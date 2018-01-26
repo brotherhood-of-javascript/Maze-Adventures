@@ -47,4 +47,9 @@ export const notWinGame = async ({ state, commit }) => {
 export const dialog = async ({ state, commit }, NPC) => {
   commit('ShowDialogWindow')
   commit('gnomeSpeak', { dialog: NPC.dialog, links: NPC.dialog[NPC.dialog.status].links, status: NPC.dialog.status })
+  commit('drowConversation', {
+    name: NPC.name,
+    message: NPC.dialog[NPC.dialog.status].message,
+    food: NPC.dialog.status === 4 ? NPC.dialog.food : ''
+  })
 }
