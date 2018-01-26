@@ -49,9 +49,6 @@ describe('getter', () => {
     spyOn(getters, 'itemGetter').and.callThrough()
     expect(getters.itemGetter(ter)).toEqual({ class: 'tree', name: 'Tree', weight: 0 })
   })
-  // name: 'Gnome',
-  // weight: 0,
-  // class: 'gnome',
   // dialogGetter
   it('Should  testing dialogGetter - this func speak with you', () => {
     spyOn(getters, 'dialogGetter').and.callThrough()
