@@ -9,6 +9,7 @@ export const drowBoxInventory = state =>
       quantity: 1,
       describe: 'some items',
       class: state.items[val].class,
+      name: state.items[val].name,
       val: val
     }))
   )

@@ -53,3 +53,6 @@ export const dialog = async ({ state, commit }, NPC) => {
     food: NPC.dialog.status === 4 ? NPC.dialog.food : ''
   })
 }
+export const dropItemsFromInventory = async ({ state, commit }, coords) => {
+  commit('del', { type: 'inventory', xy: coords })
+}
