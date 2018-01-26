@@ -7,6 +7,7 @@
         <GameTerran></GameTerran>
         <items-window v-show="itemsWindow"/>
         <dialog-window v-show="dialogWindow"/>
+        <quest v-show="questWindow"></quest>
       </div>
     </div>
     <div class="rightcol ">
@@ -27,6 +28,7 @@ import ItemsWindow from './ItemsWindow'
 import PopupNewGame from './PopupNewGame'
 import DialogWindow from './DialogWindow'
 import JurnalConversation from './JurnalConversation'
+import Quest from './Quest'
 
 const globalKey = 'quickSave3'
 export default {
@@ -37,7 +39,7 @@ export default {
       f5: false
     }
   },
-  components: { GameTerran, Inventory, ItemsWindow, PopupNewGame, DialogWindow, JurnalConversation },
+  components: { GameTerran, Inventory, ItemsWindow, PopupNewGame, DialogWindow, JurnalConversation, Quest },
   methods: {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
@@ -82,6 +84,9 @@ export default {
     },
     dialogWindow: function() {
       return this.$store.state.dialogWindow
+    },
+    questWindow: function() {
+      return this.$store.state.quest.window
     }
   }
 }

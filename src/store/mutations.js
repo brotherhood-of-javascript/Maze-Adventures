@@ -7,6 +7,7 @@ export const move = (state, { type, xy }) => {
   state[type].y = xy.y
   state.itemsWindow = false
   state.dialogWindow = false
+  state.quest.window = false
 }
 export const del = (state, { type, xy }) => {
   state[type][xy.x][xy.y] = ' '
@@ -26,6 +27,9 @@ export const hideOrShowItemWindow = state => {
 }
 export const ShowDialogWindow = state => {
   state.dialogWindow = true
+}
+export const showQuestWindow = state => {
+  state.quest.window = true
 }
 export const hideOrShowInventory = state => {
   state.openInventory = !state.openInventory
@@ -90,4 +94,8 @@ export const loaderGame = (state, { loadedGame }) => {
 }
 export const drowConversation = (state, dialog) => {
   state.jurnalConversation.push(dialog)
+}
+// Quest //
+export const putNameQuest = (state, name) => {
+  return (state.nameQuest = name)
 }

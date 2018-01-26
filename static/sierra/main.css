@@ -30,3 +30,9 @@
 .button {
   min-width: 260px;
 }
+.enigma {
+  background-image: url('http://www.gifmania.ru/Animated-Gifs-Walt-Disney/Animations-Disney-Movies/Images-Alice-in-Wonderland/Cheshire-Cat/Cheshire-Cat-86017.gif');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #18232f;
+}

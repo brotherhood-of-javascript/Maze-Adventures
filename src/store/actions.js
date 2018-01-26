@@ -53,3 +53,8 @@ export const dialog = async ({ state, commit }, NPC) => {
     food: NPC.dialog.status === 4 ? NPC.dialog.food : ''
   })
 }
+export const getQuest = async ({ state, commit }, name) => {
+  //  console.log('action name', name)
+  commit('putNameQuest', name)
+  commit('showQuestWindow')
+}
