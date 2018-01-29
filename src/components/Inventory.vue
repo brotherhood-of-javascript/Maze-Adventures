@@ -9,7 +9,14 @@
         <div class="text-medium text-gray background-dark inventory-box">
             You have:{{ this.$store.state.totalWeight }} /{{ this.$store.state.herroWeight }} kilo
         </div>
-        <button class="button button-primary button-big block-mobile save-btn " @click="itemDroper">Drop</button>
+        <button class="button button-primary button-big block-mobile save-btn " @click="itemDroper" v-show="!atTrasureChest">Drop</button>
+        <button class="button button-primary button-big block-mobile save-btn " v-show="atTrasureChest">Put In Chest</button>
+        <ul class="inventory-maine" v-show="atTrasureChest">
+            <li v-for="(item, x) in drawChest" >
+                <div  v-for="(i, y) in item" v-bind:class="x===chousedItem.x && y===chousedItem.y ? `section  ${i.class} choose`:`section  ${i.class}`"
+                @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" @click="choice(x, y, i.name, i.val)"></div>
+            </li>
+        </ul>        
         <p :class= "classObject" v-show = "this.$store.state.fullBag" >{{ messege }} </p>
         <p :class= "classInfo" >{{ itemInfo.text }} <br> {{ itemInfo.weigth }} </p>
         <PopupMenu v-show="showPopup" @closer="showPopup = $event" @sendNo="dropOrNot = $event" :msg="`Do you want to Desroy this item ${chousedItem.name}`"/>
@@ -69,6 +76,14 @@ export default {
   computed: {
     drowBoxInventory() {
       return this.$store.getters.drowBoxInventory
+    },
+    drawChest() {
+      return this.$store.getters.drawChest
+    },
+    atTrasureChest() {
+      const terran = this.$store.state.terran
+      const hero = this.$store.state.hero
+      return terran[hero.x][hero.y] === '9'
     }
   }
 }

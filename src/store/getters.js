@@ -19,3 +19,16 @@ export const itemGetter = state => state.items[state.terran[state.hero.x][state.
 export const dialogGetter = state => state.items['8']
 
 export const globalKey = () => 'saveKey'
+
+export const drawChest = state =>
+  state.items['9'].store.map((val, i) =>
+    val.map((val, y) => ({
+      id: `${i}${y}`,
+      weight: state.items[val].weight,
+      quantity: 1,
+      describe: 'some items',
+      class: state.items[val].class,
+      name: state.items[val].name,
+      val: val
+    }))
+  )
