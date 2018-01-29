@@ -18,7 +18,7 @@
           <tr v-for='names in saveObjectsArray' @click='takeСurrentName(names.id), showResaveBtn = !showResaveBtn'>
             <td>{{names.id}}</td>
             <td>{{names.date}} </td>
-            <td><button class="button button-red button-small block-mobile remove-btn" @click="remove(name)">remove</button>
+            <td><button class="button button-red button-small block-mobile remove-btn" @click="remove(names.id)">remove</button>
             </td>
           </tr>
           </tbody>
@@ -103,40 +103,40 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .title-save-load-menu {
-    font-size: 50px;
-    padding: 30px 0 40px 0;
-  }
-  .save-btn {
-    padding: 10px 80px;
-  }
-  .table>tbody>tr:hover {
-    background: #547aa0
-  }
-  .input-save-group{
-    padding-bottom: 40px;
-  }
-  .save-table {
-    font-size: 20px;
-  }
-  .input {
-    display: inline-block;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    border: 0;
-    font-size: 20px;
-    box-shadow: none;
-    color: #fff;
-    height: 82px;
-    line-height: 44px;
-    margin-bottom: 0;
-    outline: none;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 100%;
-  }
-  .input::-webkit-input-placeholder {
-    color: #fff;
-  }
+.title-save-load-menu {
+  font-size: 50px;
+  padding: 30px 0 40px 0;
+}
+.save-btn {
+  padding: 10px 80px;
+}
+.table > tbody > tr:hover {
+  background: #547aa0;
+}
+.input-save-group {
+  padding-bottom: 40px;
+}
+.save-table {
+  font-size: 20px;
+}
+.input {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  border: 0;
+  font-size: 20px;
+  box-shadow: none;
+  color: #fff;
+  height: 82px;
+  line-height: 44px;
+  margin-bottom: 0;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+.input::-webkit-input-placeholder {
+  color: #fff;
+}
 </style>

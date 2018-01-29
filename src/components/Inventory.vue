@@ -1,20 +1,25 @@
 <template>
     <div class="inventory">
         <ul class="inventory-maine" >
-            <li v-for="item in drowBoxInventory" >
-                <div  v-for="i in item" :class="`section  ${i.class}`" @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" ></div>
+            <li v-for="(item, x) in drowBoxInventory" >
+                <div  v-for="(i, y) in item" v-bind:class="x===chousedItem.x && y===chousedItem.y ? `section  ${i.class} choose`:`section  ${i.class}`"
+                @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" @click="choice(x, y, i.name, i.val)"></div>
             </li>
         </ul>
         <div class="text-medium text-gray background-dark inventory-box">
             You have:{{ this.$store.state.totalWeight }} /{{ this.$store.state.herroWeight }} kilo
         </div>
+        <button class="button button-primary button-big block-mobile save-btn " @click="itemDroper">Drop</button>
         <p :class= "classObject" v-show = "this.$store.state.fullBag" >{{ messege }} </p>
         <p :class= "classInfo" >{{ itemInfo.text }} <br> {{ itemInfo.weigth }} </p>
+        <PopupMenu v-show="showPopup" @closer="showPopup = $event" @sendNo="dropOrNot = $event" :msg="`Do you want to Desroy this item ${chousedItem.name}`"/>
     </div>
 </template>
 
 <script>
+import PopupMenu from './PopupNewGame'
 export default {
+  components: { PopupMenu },
   data: function() {
     return {
       inventory: this.$store.state.inventory,
@@ -29,10 +34,18 @@ export default {
         'text-medium': true,
         'inventory-box': true,
         'text-primary': true
-      }
+      },
+      chousedItem: { val: ' ' },
+      showPopup: false,
+      dropOrNot: false
     }
   },
   methods: {
+    choice(x, y, name, val) {
+      this.dropOrNot = false
+      this.showPopup = false
+      this.chousedItem = { x: x, y: y, name: name, val: val }
+    },
     getInformationItem(val) {
       return (this.itemInfo = {
         text: this.$store.state.items[val].info,
@@ -42,7 +55,16 @@ export default {
     },
     cleanItemInfo(event) {
       return (this.itemInfo = '')
+    },
+    itemDroper() {
+      if (this.chousedItem.val !== ' ') {
+        this.showPopup = true
+      } else this.showPopup = false
     }
+  },
+  beforeUpdate: function() {
+    if (this.dropOrNot) this.$store.dispatch('dropItemsFromInventory', this.chousedItem)
+    this.dropOrNot = false
   },
   computed: {
     drowBoxInventory() {
@@ -96,5 +118,8 @@ li {
   background-repeat: no-repeat;
   background-color: #18232f;
   background-size: 100%;
+}
+.choose {
+  border: 2px solid white;
 }
 </style>

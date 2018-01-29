@@ -9,6 +9,7 @@ export const drowBoxInventory = state =>
       quantity: 1,
       describe: 'some items',
       class: state.items[val].class,
+      name: state.items[val].name,
       val: val
     }))
   )
@@ -16,3 +17,5 @@ export const drowBoxInventory = state =>
 export const itemGetter = state => state.items[state.terran[state.hero.x][state.hero.y]]
 
 export const dialogGetter = state => state.items['8']
+
+export const globalKey = () => 'saveKey'
