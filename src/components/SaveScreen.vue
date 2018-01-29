@@ -1,14 +1,10 @@
 <template>
   <section class="section container">
     <h2 class="text-gray title-save-load-menu">Save Game</h2>
-    <!--<error-Resave-Window v-show='this.$store.state.openInventory'/>-->
     <div class="row">
       <div class="input-save-group col-xs-12 col-md-12">
         <input type="text" class="description-save input full-width" placeholder="Name for save" v-model="name">
       </div>
-      <!--<div class="input-save-group col-xs-6 col-md-6">-->
-      <!--<input type="text" class="data-save input full-width" v-model="dataSave" placeholder="Data">-->
-      <!--</div>-->
       <div class="col-xs-12 ">
         <table class="table save-table">
           <thead>
@@ -29,19 +25,20 @@
         </table>
       </div>
       <div class="col-xs-12">
-        <button class="button button-primary button-big block-mobile save-btn " @click="save">Save</button>
-        <button class="button button-huge block-mobile save-btn " @click="reSave" v-show='showResaveBtn'>resave</button>
+        <button class="button button-primary button-big block-mobile save-btn " @click="save()">Save</button>
+        <error-resave-window v-show="warningWindow"  msg="Do you sure that you want to rewrite save game?" @acceptresave="reSave"  @sendNo="warningWindow = $event"/>
       </div>
     </div>
   </section>
 </template>
-
 <script>
-  const globalSave = 'saveKey'
+  import ErrorResaveWindow from './errorResaveWindow'
   export default {
+    components: { ErrorResaveWindow },
     name: 'SaveScreen',
     data: function() {
       return {
+        warningWindow: false,
         showResaveBtn: '',
         currentName: '',
         name: '',
@@ -58,40 +55,45 @@
         return date.getFullYear() + '-' + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : '' + (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : '' + date.getDate()) + ' ' + (date.getHours() < 10 ? '0' + date.getHours() : '' + date.getHours()) + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : '' + date.getMinutes())
       },
       save() {
-        if (this.name !== '') {
-          let saveObject = {
-            id: this.name,
-            state: JSON.stringify(this.$store.state),
-            date: this.getFormattedDate(new Date())
+        if (this.currentName === '') {
+          if (this.name !== '') {
+            let saveObject = {
+              id: this.name,
+              state: JSON.stringify(this.$store.state),
+              date: this.getFormattedDate(new Date())
+            }
+            this.saveObjectsArray.push(saveObject)
+            this.$store.commit('saveNewState', {key: this.$store.getters.globalKey, value: this.saveObjectsArray})
+            this.name = ''
+            this.dataSave = ''
           }
-          this.saveObjectsArray.push(saveObject)
-          this.$store.commit('saveNewState', {key: globalSave, value: this.saveObjectsArray})
-          this.name = ''
-          this.dataSave = ''
+        } else {
+          this.warningWindow = true
         }
       },
       reSave() {
-        for (let i = 0; i < this.saveObjectsArray.length; i++) {
+        for (var i = 0; i < this.saveObjectsArray.length; i++) {
           if (this.saveObjectsArray[i].id === this.currentName) {
             this.saveObjectsArray[i] = {state: JSON.stringify(this.$store.state), id: this.name, date: this.getFormattedDate(new Date())}
-            this.$store.commit('saveNewState', {key: globalSave, value: this.saveObjectsArray})
+            this.$store.commit('saveNewState', {key: this.$store.getters.globalKey, value: this.saveObjectsArray})
             this.name = ''
             this.showResaveBtn = false
+            this.currentName = ''
           }
         }
       },
       remove(names) {
-        for (let i = 0; i < this.saveObjectsArray.length; i++) {
+        for (var i = 0; i < this.saveObjectsArray.length; i++) {
           if (this.saveObjectsArray[i].id === names) {
             this.saveObjectsArray.splice(i, 1)
-            this.$store.commit('saveNewState', {key: globalSave, value: this.saveObjectsArray})
+            this.$store.commit('saveNewState', {key: this.$store.getters.globalKey, value: this.saveObjectsArray})
             break
           }
         }
       }
     },
     created() {
-      let saveArray = localStorage.getItem(globalSave)
+      let saveArray = localStorage.getItem(this.$store.getters.globalKey)
       if (saveArray) {
         this.saveObjectsArray = JSON.parse(saveArray)
       }
