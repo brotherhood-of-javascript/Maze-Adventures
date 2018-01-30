@@ -13,6 +13,10 @@ export const del = (state, { type, xy }) => {
   state[type][xy.x][xy.y] = ' '
   state[type] = [...state[type]]
 }
+export const delchest = (state, { type, xy }) => {
+  state.items['9'][type][xy.x][xy.y] = ' '
+  state.items['9'][type] = [...state.items['9'][type]]
+}
 export const saveNewState = (state, { key, value }) => {
   localStorage.setItem(key, JSON.stringify(value))
 }
@@ -48,8 +52,13 @@ export const drawItemInInventory = (state, { type, xy, item }) => {
   // stop collect
   state[type] = [...state[type]]
 }
-export const CalculateItems = (state, num) => {
-  state.totalWeight += state.items[num].weight
+export const CalculateItems = state => {
+  state.totalWeight = state.inventory.reduce((sum, row) => {
+    row.forEach(val => {
+      sum += state.items[val].weight
+    })
+    return sum
+  }, 0)
 }
 export const checkingWaightBag = (state, num) => {
   let culWeight = state.totalWeight + state.items[num].weight
@@ -121,3 +130,13 @@ export const herroAnsvers = (state, ansver) => {
   state.jurnalConversation.push({ name: 'hero', message: ansver })
 }
 // ---/ Quest ---
+export const moveToChest = (state, { type, xy, item }) => {
+  state.items['9'][type][xy.x][xy.y] = item
+  state.items['9'][type] = [...state.items['9'][type]]
+}
+export const moveToInventory = (state, { type, xy, item }) => {
+  console.log('item=>', item)
+  state[type][xy.x][xy.y] = item
+  state[type] = [...state[type]]
+  //  console.log(state.items['9'][type][0][0])
+}
