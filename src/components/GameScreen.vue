@@ -1,5 +1,5 @@
 <template id="demo">
-   <section class="section demo-main "> <!--aligner-space-around -->
+   <section class="section demo-main "> 
     <div class="section background-dark">
       <div class="container text-center">
         <h3 class="text-huge text-white text-with-subtitle">We can be heroes</h3>
@@ -17,6 +17,7 @@
       <button class="button button-huge block-mobile" @click="getBoxInventory">Inventory</button>
       <Inventory v-show="this.$store.state.openInventory"></Inventory>
       <jurnal-conversation></jurnal-conversation>
+      <jurnal-quests></jurnal-quests>
     </div>
     <PopupNewGame v-show="f5"  :msg="message" route="MainMenu" @sendNo="f5 = $event"></PopupNewGame>
   </section>
@@ -29,6 +30,7 @@ import PopupNewGame from './PopupNewGame'
 import DialogWindow from './DialogWindow'
 import JurnalConversation from './JurnalConversation'
 import Quest from './Quest'
+import JurnalQuests from './JurnalQuests'
 
 const globalKey = 'quickSave3'
 export default {
@@ -39,7 +41,16 @@ export default {
       f5: false
     }
   },
-  components: { GameTerran, Inventory, ItemsWindow, PopupNewGame, DialogWindow, JurnalConversation, Quest },
+  components: {
+    GameTerran,
+    Inventory,
+    ItemsWindow,
+    PopupNewGame,
+    DialogWindow,
+    JurnalConversation,
+    Quest,
+    JurnalQuests
+  },
   methods: {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
@@ -48,10 +59,6 @@ export default {
       if (event.keyCode === 120) {
         //  f9
         localStorage.setItem(globalKey, JSON.stringify(this.$store.state))
-        // Storage.prototype.setObj = function(key, obj) {
-        //   return this.setItem(key, JSON.stringify(obj))
-        // }
-        // localStorage.setObj(globalKey, this.$store.state)
       }
 
       if (event.keyCode === 118) {

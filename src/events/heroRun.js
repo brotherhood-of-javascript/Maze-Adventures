@@ -13,17 +13,23 @@ export default function heroRunEvent(event) {
       if (NPC.includes(terran[hero.x + 1][hero.y])) {
         this.$store.dispatch('dialog', items[terran[hero.x + 1][hero.y]])
       }
+      // Quest starting
       if (quest.includes(terran[hero.x + 1][hero.y])) {
-        console.log(' items[terran[hero.x + 1][hero.y]]', items[terran[hero.x + 1][hero.y]].class)
         this.$store.dispatch('getQuest', items[terran[hero.x + 1][hero.y]].class)
       }
       if (cantWalk.includes(terran[hero.x + 1][hero.y])) return
       this.$store.dispatch('heroMove', { x: hero.x + 1, y: hero.y })
       break
+
     case 38: // upp
       if (NPC.includes(terran[hero.x - 1][hero.y])) {
         this.$store.dispatch('dialog', items[terran[hero.x + 1][hero.y]])
       }
+      // Quest starting
+      if (quest.includes(terran[hero.x - 1][hero.y])) {
+        this.$store.dispatch('getQuest', items[terran[hero.x - 1][hero.y]].class)
+      }
+
       if (cantWalk.includes(terran[hero.x - 1][hero.y])) return
       this.$store.dispatch('heroMove', { x: hero.x - 1, y: hero.y })
       break
@@ -31,6 +37,11 @@ export default function heroRunEvent(event) {
       if (NPC.includes(terran[hero.x][hero.y + 1])) {
         this.$store.dispatch('dialog', items[terran[hero.x][hero.y + 1]])
       }
+      // Quest starting
+      if (quest.includes(terran[hero.x][hero.y + 1])) {
+        this.$store.dispatch('getQuest', items[terran[hero.x][hero.y + 1]].class)
+      }
+
       if (cantWalk.includes(terran[hero.x][hero.y + 1])) return
       this.$store.dispatch('heroMove', { x: hero.x, y: hero.y + 1 })
       break
@@ -38,6 +49,11 @@ export default function heroRunEvent(event) {
       if (NPC.includes(terran[hero.x][hero.y - 1])) {
         this.$store.dispatch('dialog', items[terran[hero.x][hero.y - 1]])
       }
+      // Quest starting
+      if (quest.includes(terran[hero.x][hero.y - 1])) {
+        this.$store.dispatch('getQuest', items[terran[hero.x][hero.y - 1]].class)
+      }
+
       if (cantWalk.includes(terran[hero.x][hero.y - 1])) return
       this.$store.dispatch('heroMove', { x: hero.x, y: hero.y - 1 })
       break
@@ -51,6 +67,4 @@ export default function heroRunEvent(event) {
   }
 }
 
-export function heroRun1() {
-  console.log('hi')
-}
+export function heroRun1() {}

@@ -1,19 +1,19 @@
 <template>
   <div class="over">
-    <div class="text-huge text-white text-with-subtitle under">{{this.$store.state.items['8'].name}} 
-      <div :class="this.$store.state.items['8'].class" class="picture"></div>
-      {{this.$store.state.items['8'].dialog[this.$store.state.items['8'].dialog.status].message}}{{this.$store.state.items['8'].dialog.status===4?this.$store.state.items['8'].dialog.food:''}}
+    <div class="text-huge text-white text-with-subtitle under">{{NPC.name}} 
+      <div :class="NPC.class" class="picture"></div>
+      {{NPC.dialog[this.$store.state.items['8'].dialog.status].message}}{{NPC.dialog.status === 4 ? NPC.dialog.food:''}}
     </div>
   
   </div>
 </template>
 <script>
 export default {
-  // computed: {
-  //   NPC: function() {
-  //     return this.$store.getters.dialogGetter
-  //   }
-  // }
+  computed: {
+    NPC: function() {
+      return this.$store.getters.dialogGetter
+    }
+  }
 }
 </script>
 <style scoped>

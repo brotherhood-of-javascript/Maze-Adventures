@@ -1,25 +1,42 @@
 <template>
   <div class="Quest">
    <div class="text-huge text-white text-with-subtitle under"> 
-       <h2>{{ nameQuest.name}}</h2><!-- {{this.$store.state.items['8'].name}}  -->
+       <h2>{{ nameQuest.name}}</h2>
       <div :class="nameQuest.class" class="picture"></div>
-      <div>{{ nameQuest[start]}}</div>
-      <!-- {{this.$store.state.items['8'].dialog[this.$store.state.items['8'].dialog.status].message}}{{this.$store.state.items['8'].dialog.status===4?this.$store.state.items['8'].dialog.food:''}} -->
+      <div>{{ nameQuest.badAnsver }}<br>{{ nameQuest[nameQuest.start].mess}}</div>
+      <div :class="nameQuest.classPrize" v-show="nameQuest.getPrize" class="picture"></div>
+      <div>
+        <div v-for="(item, index) in nameQuest[nameQuest.start].options">
+          <button class="button button-secondary block-mobile" @click="checkAnswers(item)">{{item}}</button>
+        </div>
+      </div>
+      
     </div>
   
   </div>
 </template>
 <script>
 export default {
+  name: 'Quest',
   data() {
-    return {
-      // nameQuest: this.$store.getters.getYorQuestForNow,
-      quest: this.$store.state.quest
-    }
+    return {}
   },
   computed: {
     nameQuest: function() {
       return this.$store.getters.getYorQuestForNow
+    }
+  },
+  methods: {
+    checkAnswers(item) {
+      if (this.nameQuest[this.nameQuest.start].ansver === event.target.innerHTML) {
+        console.log('putQustInfo', this.nameQuest)
+        this.$store.dispatch('putQustInfo', this.nameQuest)
+        this.$store.dispatch('herroAnsvers', event.target.innerHTML)
+      } else {
+        console.log('badAnsver', this.nameQuest)
+        this.$store.dispatch('putQustbadAnsver', this.nameQuest)
+        this.$store.dispatch('herroAnsvers', event.target.innerHTML)
+      }
     }
   }
 }
@@ -29,6 +46,7 @@ export default {
   margin: auto;
   width: 250px;
   height: 250px;
+  background-color: #2c3e50;
 }
 .over {
   position: static;

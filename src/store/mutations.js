@@ -35,10 +35,6 @@ export const hideOrShowInventory = state => {
   state.openInventory = !state.openInventory
 }
 export const createNewState = (state, nameKey) => {
-  // Storage.prototype.getObj = function(nameKey) {
-  //   return JSON.parse(this.getItem(nameKey))
-  // }
-  // Object.assign(state, localStorage.getObj(nameKey))
   if (localStorage.getItem(nameKey)) {
     Object.assign(state, JSON.parse(localStorage.getItem(nameKey)))
   }
@@ -95,7 +91,33 @@ export const loaderGame = (state, { loadedGame }) => {
 export const drowConversation = (state, dialog) => {
   state.jurnalConversation.push(dialog)
 }
-// Quest //
+// --- Quest ---
 export const putNameQuest = (state, name) => {
   return (state.nameQuest = name)
 }
+export const putQustInfo = (state, obj) => {
+  obj.badAnsver = ''
+  obj.start = obj[obj.start].links
+
+  state.quest.status[obj.class] = obj.done
+  if (obj.start[0] === 5) {
+    obj.getPrize = true
+    state.quest.status[obj.class] = 'You have passed it'
+  }
+}
+export const putQustbadAnsver = (state, obj) => {
+  if (obj.start === 0) {
+    state.jurnalConversation.push({ name: obj.name, message: obj[obj.start].mess })
+    state.quest.window = obj[obj.start].badAnsver
+  } else {
+    state.jurnalConversation.push({
+      name: obj.name,
+      message: obj[obj[obj.start].badAnsver].mess + '' + obj[obj.start].mess
+    })
+    obj.badAnsver = obj[obj[obj.start].badAnsver].mess
+  }
+}
+export const herroAnsvers = (state, ansver) => {
+  state.jurnalConversation.push({ name: 'hero', message: ansver })
+}
+// ---/ Quest ---

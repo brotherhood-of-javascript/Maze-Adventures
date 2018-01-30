@@ -47,14 +47,26 @@ export const notWinGame = async ({ state, commit }) => {
 export const dialog = async ({ state, commit }, NPC) => {
   commit('ShowDialogWindow')
   commit('gnomeSpeak', { dialog: NPC.dialog, links: NPC.dialog[NPC.dialog.status].links, status: NPC.dialog.status })
+  let gnomeMess = NPC.dialog[NPC.dialog.status].message
+  let food = NPC.dialog.status === 4 ? NPC.dialog.food : ''
   commit('drowConversation', {
     name: NPC.name,
-    message: NPC.dialog[NPC.dialog.status].message,
-    food: NPC.dialog.status === 4 ? NPC.dialog.food : ''
+    message: gnomeMess + food
   })
 }
+// --- Quest ---
 export const getQuest = async ({ state, commit }, name) => {
-  //  console.log('action name', name)
   commit('putNameQuest', name)
   commit('showQuestWindow')
 }
+export const putQustInfo = async ({ state, commit }, obj) => {
+  commit('drowConversation', { name: obj.name, message: obj[obj.start].mess }) /// aded info
+  commit('putQustInfo', obj)
+}
+export const putQustbadAnsver = async ({ state, commit }, obj) => {
+  commit('putQustbadAnsver', obj)
+}
+export const herroAnsvers = async ({ state, commit }, herroAnsvers) => {
+  commit('herroAnsvers', herroAnsvers)
+}
+// --- / Quest ---
