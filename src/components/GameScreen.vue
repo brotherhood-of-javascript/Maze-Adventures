@@ -1,4 +1,4 @@
-<template id="demo">
+<template id="demo" class="GameScreen">
    <section class="section demo-main "> 
     <div class="section background-dark">
       <div class="container text-center">
@@ -7,7 +7,7 @@
         <GameTerran></GameTerran>
         <items-window v-show="itemsWindow"/>
         <dialog-window v-show="dialogWindow"/>
-        <quest v-show="questWindow"></quest>
+        <quest v-if="questWindow"></quest>
       </div>
     </div>
     <div class="rightcol ">
