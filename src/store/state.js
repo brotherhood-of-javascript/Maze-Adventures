@@ -14,7 +14,7 @@ export default function() {
       [' ', ' ', ' ', ' ', ' '],
       [' ', ' ', ' ', ' ', ' ']
     ],
-    cantWalk: ['1', '0', '2', '8'],
+    cantWalk: ['1', '0', '2', '8', '3'],
     pickableItems: ['4', '5', '6'],
     NPC: ['8'],
     itemsToWin: ['7'],
@@ -30,6 +30,7 @@ export default function() {
       '0': new classes.Items('Tree', 0, 'tree'),
       '1': new classes.Items('Wall', 0, 'wall'),
       '2': new classes.Items('Monster', 0, 'monster'),
+      '3': new classes.Items('Enigma', 0, 'enigma'), // this.quest.gnome_mystery.enigma
       '4': new classes.Items(
         'Diamond',
         50,
@@ -49,6 +50,7 @@ export default function() {
         'You need only to view the movie Super Size Me to understand how foods impact the body'
       ),
       '7': new classes.Items('Main trasure', 0, 'mainTrasure', 'If you collect this you win the game'),
+      '*': new classes.Items('Key', 0, 'key'), // prize from quest enigma
       '8': (() => {
         const gnome = new classes.Dialog({
           0: { message: '', links: [1] },
@@ -79,6 +81,59 @@ export default function() {
       })()
     },
     jurnalConversation: [],
+    nameQuest: '',
+    quest: {
+      status: {
+        enigma: 'You need have passed it'
+      },
+      number: ['3'],
+      window: false,
+      enigma: {
+        done: 'You are sttarting', // each quest must have!
+        name: 'Cheshire Cat', // each quest must have!
+        class: 'enigma', // each quest must have!
+        start: 0, // each quest must have!
+        badAnsver: '',
+        getPrize: false,
+        classPrize: 'enigma-key',
+        0: {
+          mess: 'Hello. A you ready play with me in the enigma?',
+          options: ['yes', 'no'],
+          links: [1],
+          badAnsver: false,
+          ansver: 'yes'
+        },
+        1: {
+          mess: '№1 What is found over your head but under your hat?',
+          options: ['Hair', 'Calvity', 'Flea'],
+          links: [2],
+          badAnsver: [4],
+          ansver: 'Hair'
+        },
+        2: {
+          mess: '№2 I am round like an apple Flat as a chip I have eyes But I can’t see one bit',
+          options: ['Badge', 'Round battery', 'Button'],
+          links: [3],
+          badAnsver: [4],
+          ansver: 'Button'
+        },
+        3: {
+          mess: " №3 What's black when you get it, red when you use it, and white when you're all through with it",
+          options: ['Stone', 'Charcoal', 'Iron'],
+          links: [5],
+          badAnsver: [4],
+          ansver: 'Charcoal'
+        },
+        4: {
+          mess: 'This is not the right answer'
+        },
+        5: {
+          mess: 'You win! Now i will give you key',
+          prize: '*'
+        }
+      }
+    },
+
     start: true,
     initialState: '',
     terran: [
@@ -87,7 +142,7 @@ export default function() {
       ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '6', '1', ' ', '0', ' ', '0', ' ', '1'],
       ['1', ' ', '1', '4', ' ', '5', '5', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', '0', ' ', '0', '5', '1'],
       ['1', ' ', '1', ' ', ' ', ' ', ' ', '1', '1', '1', '0', '0', ' ', '1', ' ', '0', ' ', '0', ' ', '1'],
-      ['1', '2', '1', ' ', ' ', ' ', '4', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', '0', ' ', '0', ' ', '1'],
+      ['1', ' ', '1', ' ', ' ', ' ', '4', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', '0', ' ', '0', ' ', '1'],
       ['1', ' ', '0', ' ', '2', ' ', ' ', ' ', ' ', ' ', ' ', '0', '4', ' ', ' ', '0', ' ', ' ', ' ', '1'],
       ['1', ' ', '0', ' ', ' ', ' ', '0', ' ', ' ', '0', ' ', '0', ' ', '1', '1', '1', '1', '1', '1', '1'],
       ['1', ' ', '0', ' ', ' ', ' ', '0', ' ', '1', ' ', ' ', '0', '6', ' ', ' ', ' ', '5', ' ', ' ', '1'],
@@ -96,8 +151,8 @@ export default function() {
       ['1', ' ', '1', ' ', ' ', ' ', '0', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', '2', ' ', ' ', '1'],
       ['1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', ' ', '0', ' ', ' ', '2', ' ', ' ', '1'],
       ['1', ' ', ' ', ' ', '0', ' ', '0', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],
-      ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', '4', ' ', ' ', '1'],
-      ['1', '1', '1', '1', '1', '1', '1', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],
+      ['1', '3', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', '4', ' ', ' ', '1'],
+      ['1', ' ', ' ', '1', '1', '1', '1', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],
       ['1', ' ', ' ', ' ', ' ', ' ', '1', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', '6', '1'],
       ['1', '1', '1', '1', '1', ' ', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', '1'],
       ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '7', ' ', ' ', ' ', ' ', ' ', '8', ' ', ' ', ' ', '1'],

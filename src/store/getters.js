@@ -17,6 +17,9 @@ export const drowBoxInventory = state =>
 export const itemGetter = state => state.items[state.terran[state.hero.x][state.hero.y]]
 
 export const dialogGetter = state => state.items['8']
+export const getYorQuestForNow = state => {
+  return state.quest[state.nameQuest]
+}
 
 export const globalKey = () => 'saveKey'
 
