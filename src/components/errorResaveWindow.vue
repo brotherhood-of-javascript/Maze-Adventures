@@ -10,34 +10,33 @@
 </template>
 
 <script>
-  export default {
-    name: 'error-resave-window',
-    props: {
-      msg: {
-        type: String
-      },
-      acceptresave: Function
+export default {
+  name: 'error-resave-window',
+  props: {
+    msg: {
+      type: String
     },
-    data: function() {
-      return {
-      }
+    acceptresave: Function
+  },
+  data: function() {
+    return {}
+  },
+  // props: ['msg', 'alertsms'],
+  methods: {
+    getYesAnsver() {
+      this.$emit('acceptresave')
+      this.$emit('sendNo', false)
+      // console.log(this.acceptresave())
     },
-    // props: ['msg', 'alertsms'],
-    methods: {
-      getYesAnsver() {
-        this.$emit('acceptresave')
-        this.$emit('sendNo', false)
-        // console.log(this.acceptresave())
-      },
-      getNoAnsver(event) {
-        this.$emit('sendNo', false)
-      }
+    getNoAnsver(event) {
+      this.$emit('sendNo', false)
     }
   }
+}
 </script>
 
 <style scoped>
-  .PopupNewGame {
+.PopupNewGame {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -60,6 +59,6 @@
   min-width: 100px;
 }
 .bottom-btn {
-  margin: 40px 0 ;
+  margin: 40px 0;
 }
 </style>

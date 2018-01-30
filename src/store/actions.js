@@ -56,3 +56,19 @@ export const dialog = async ({ state, commit }, NPC) => {
 export const dropItemsFromInventory = async ({ state, commit }, coords) => {
   commit('del', { type: 'inventory', xy: coords })
 }
+export const itemMoverToChest = async ({ state, commit }, { coords, from, to }) => {
+  commit('moveToChest', {
+    type: 'store',
+    xy: findEmptyPlace(to),
+    item: from[coords.x][coords.y]
+  })
+  commit('del', { type: 'inventory', xy: coords })
+}
+export const itemMoverToInventory = async ({ state, commit }, { coords, from, to }) => {
+  commit('moveToInventory', {
+    type: 'inventory',
+    xy: findEmptyPlace(from),
+    item: to[coords.x][coords.y]
+  })
+  commit('delchest', { type: 'store', xy: coords })
+}
