@@ -7,7 +7,7 @@
         <GameTerran></GameTerran>
         <items-window v-show="itemsWindow"/>
         <dialog-window v-show="dialogWindow"/>
-        <quest v-show="questWindow"></quest>
+        <quest v-if="questWindow"></quest>
       </div>
     </div>
     <div class="rightcol ">
