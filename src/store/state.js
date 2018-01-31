@@ -17,9 +17,11 @@ export default function() {
     cantWalk: ['1', '0', '2', '8', '3'],
     pickableItems: ['4', '5', '6'],
     NPC: ['8'],
+    bot: ['2'],
     itemsToWin: ['7'],
     itemsWindow: false,
     dialogWindow: false,
+    fightWindow: false,
     openInventory: false,
     herroWeight: 60,
     totalWeight: 0,
@@ -29,6 +31,7 @@ export default function() {
       ' ': new classes.Items('', 0, ''),
       '0': new classes.Items('Tree', 0, 'tree'),
       '1': new classes.Items('Wall', 0, 'wall'),
+      // '2': new classes.Items('Monster', 0, 'monster'),
       '2': new classes.Items('Monster', 0, 'monster'),
       '3': new classes.Items('Enigma', 0, 'enigma'), // this.quest.gnome_mystery.enigma
       '4': new classes.Items(
@@ -50,7 +53,7 @@ export default function() {
         'You need only to view the movie Super Size Me to understand how foods impact the body'
       ),
       '7': new classes.Items('Main trasure', 0, 'mainTrasure', 'If you collect this you win the game'),
-      '*': new classes.Items('Key', 0, 'key'), // prize from quest enigma
+      '*': new classes.Items('Key', 0, 'key', 'This key help you open treasure chest'), // prize from quest enigma
       '8': (() => {
         const gnome = new classes.Dialog({
           0: { message: '', links: [1] },
@@ -67,6 +70,20 @@ export default function() {
         gnome.class = 'gnome'
         gnome.info = 'If you collect this you win the game'
         return gnome
+      })(),
+      '2': (() => {
+        const monster = new classes.Fight({
+          0: { message: '', links: [1, 2] },
+          1: { message: 'hero loose!', links: [1, 2] },
+          2: { message: 'hero win!', links: [1, 2] },
+          statusOfWin: 0
+        })
+        // 'Freddy', 100, 'monster', 'scary person with  long arms'
+        monster.name = 'Freddy'
+        monster.class = 'monster'
+        monster.info = ''
+        monster.target = 'hero-rarget'
+        return monster
       })(),
       '9': (() => {
         const chest = new classes.Items('Chest', 0, 'chest', 'In chest you can collect items')
@@ -142,14 +159,14 @@ export default function() {
       ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '6', '1', ' ', '0', ' ', '0', ' ', '1'],
       ['1', ' ', '1', '4', ' ', '5', '5', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', '0', ' ', '0', '5', '1'],
       ['1', ' ', '1', ' ', ' ', ' ', ' ', '1', '1', '1', '0', '0', ' ', '1', ' ', '0', ' ', '0', ' ', '1'],
-      ['1', ' ', '1', ' ', ' ', ' ', '4', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', '0', ' ', '0', ' ', '1'],
-      ['1', ' ', '0', ' ', '2', ' ', ' ', ' ', ' ', ' ', ' ', '0', '4', ' ', ' ', '0', ' ', ' ', ' ', '1'],
+      ['1', '2', '1', ' ', ' ', ' ', '4', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', '0', ' ', '0', ' ', '1'],
+      ['1', ' ', '0', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '0', '4', ' ', ' ', '0', ' ', ' ', ' ', '1'],
       ['1', ' ', '0', ' ', ' ', ' ', '0', ' ', ' ', '0', ' ', '0', ' ', '1', '1', '1', '1', '1', '1', '1'],
       ['1', ' ', '0', ' ', ' ', ' ', '0', ' ', '1', ' ', ' ', '0', '6', ' ', ' ', ' ', '5', ' ', ' ', '1'],
-      ['1', ' ', '1', ' ', ' ', '4', '0', ' ', '1', '2', ' ', '0', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1'],
+      ['1', ' ', '1', ' ', ' ', '4', '0', ' ', '1', ' ', ' ', '0', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1'],
       ['1', '6', '0', ' ', ' ', ' ', '0', ' ', '1', ' ', '4', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],
-      ['1', ' ', '1', ' ', ' ', ' ', '0', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', '2', ' ', ' ', '1'],
-      ['1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', ' ', '0', ' ', ' ', '2', ' ', ' ', '1'],
+      ['1', ' ', '1', ' ', ' ', ' ', '0', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],
+      ['1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],
       ['1', ' ', ' ', ' ', '0', ' ', '0', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],
       ['1', '3', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', '4', ' ', ' ', '1'],
       ['1', ' ', ' ', '1', '1', '1', '1', ' ', '1', ' ', ' ', '0', ' ', '0', ' ', ' ', ' ', ' ', ' ', '1'],

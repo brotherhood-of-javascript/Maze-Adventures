@@ -27,6 +27,18 @@
   background-color: #18232f;
   background-size: 100%;
 }
+.monster {
+  background-image: url('http://www.apyww.com/img-png/freddy-krueger-png-a-nightmare-on-elm-street-freddy-krueger-deluxe-adult-sweater-346.png');
+  background-repeat: no-repeat;
+  background-color: #18232f;
+  background-size: 100%;
+}
+.hero-rarget {
+  background-image: url('http://worldartsme.com/images/batman-transparent-background-clipart-1.jpg');
+  background-repeat: no-repeat;
+  background-color: #18232f;
+  background-size: 100%;
+}
 .button {
   min-width: 260px;
 }
@@ -47,4 +59,10 @@
   background-repeat: no-repeat;
   background-color: #18232f;
   background-size: 100%;
+}
+.key {
+  background-image: url('http://srorieltomsk.ru/upload/medialibrary/a54/8503418_5f8e8269.gif') !important;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  /* // background-color: #18232f; */
 }
