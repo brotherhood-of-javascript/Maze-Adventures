@@ -16,6 +16,7 @@ export default function heroRunEvent(event) {
       }
       if (bot.includes(terran[hero.x + 1][hero.y])) {
         this.$store.dispatch('fight', items[terran[hero.x + 1][hero.y]])
+      }
       // Quest starting
       if (quest.includes(terran[hero.x + 1][hero.y])) {
         this.$store.dispatch('getQuest', items[terran[hero.x + 1][hero.y]].class)

@@ -34,7 +34,6 @@ import fightWindow from './fightWindow'
 import Quest from './Quest'
 import JurnalQuests from './JurnalQuests'
 
-
 const globalKey = 'quickSave3'
 export default {
   name: 'GameScreen',
@@ -52,7 +51,7 @@ export default {
     DialogWindow,
     JurnalConversation,
     Quest,
-    JurnalQuests
+    JurnalQuests,
     fightWindow
   },
   methods: {

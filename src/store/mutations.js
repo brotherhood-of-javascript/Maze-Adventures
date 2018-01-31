@@ -38,6 +38,7 @@ export const ShowDialogWindow = state => {
 }
 export const showFightWindow = state => {
   state.fightWindow = !state.fightWindow
+}
 export const showQuestWindow = state => {
   state.quest.window = true
 }
