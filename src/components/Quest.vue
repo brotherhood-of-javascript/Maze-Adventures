@@ -1,9 +1,9 @@
-<template>
+<template class="Quest">
   <div class="Quest">
    <div class="text-huge text-white text-with-subtitle under"> 
-       <h2>{{ nameQuest.name}}</h2>
+       <h2>{{ nameQuest.name }}</h2>
       <div :class="nameQuest.class" class="picture"></div>
-      <div>{{ nameQuest.badAnsver }}<br>{{ nameQuest[nameQuest.start].mess}}</div>
+      <div>{{ nameQuest.badAnsver }}<br>{{ nameQuest[nameQuest.start].mess }}</div>
       <div :class="nameQuest.classPrize" v-show="nameQuest.getPrize" class="picture"></div>
       <div>
         <div v-for="(item, index) in nameQuest[nameQuest.start].options">
@@ -17,7 +17,6 @@
 </template>
 <script>
 export default {
-  name: 'Quest',
   data() {
     return {}
   },
@@ -29,11 +28,9 @@ export default {
   methods: {
     checkAnswers(item) {
       if (this.nameQuest[this.nameQuest.start].ansver === event.target.innerHTML) {
-        console.log('putQustInfo', this.nameQuest)
         this.$store.dispatch('putQustInfo', this.nameQuest)
         this.$store.dispatch('herroAnsvers', event.target.innerHTML)
       } else {
-        console.log('badAnsver', this.nameQuest)
         this.$store.dispatch('putQustbadAnsver', this.nameQuest)
         this.$store.dispatch('herroAnsvers', event.target.innerHTML)
       }

@@ -1,4 +1,4 @@
-<template id="demo">
+<template id="demo" class="GameScreen">
    <section class="section demo-main "> 
     <div class="section background-dark">
       <div class="container text-center">
