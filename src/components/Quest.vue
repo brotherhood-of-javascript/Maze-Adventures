@@ -30,6 +30,7 @@ export default {
       if (this.nameQuest[this.nameQuest.start].ansver === event.target.innerHTML) {
         this.$store.dispatch('putQustInfo', this.nameQuest)
         this.$store.dispatch('herroAnsvers', event.target.innerHTML)
+        console.log('getters.drowBoxInventory', this.$store.getters.drowBoxInventory)
       } else {
         this.$store.dispatch('putQustbadAnsver', this.nameQuest)
         this.$store.dispatch('herroAnsvers', event.target.innerHTML)

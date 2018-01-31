@@ -72,6 +72,15 @@ export const getQuest = async ({ state, commit }, name) => {
 export const putQustInfo = async ({ state, commit }, obj) => {
   commit('drowConversation', { name: obj.name, message: obj[obj.start].mess }) /// aded info
   commit('putQustInfo', obj)
+
+  if (obj.start[0] === 5) {
+    // added item from quest to inventary
+    commit('drawItemInInventory', {
+      type: 'inventory',
+      xy: findEmptyPlace(state.inventory),
+      item: obj[obj.start].prize
+    })
+  }
 }
 export const putQustbadAnsver = async ({ state, commit }, obj) => {
   commit('putQustbadAnsver', obj)
@@ -79,6 +88,7 @@ export const putQustbadAnsver = async ({ state, commit }, obj) => {
 export const herroAnsvers = async ({ state, commit }, herroAnsvers) => {
   commit('herroAnsvers', herroAnsvers)
 }
+
 // --- / Quest ---
 
 export const dropItemsFromInventory = async ({ state, commit }, coords) => {

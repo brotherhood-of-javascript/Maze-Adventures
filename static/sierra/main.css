@@ -60,3 +60,9 @@
   background-color: #18232f;
   background-size: 100%;
 }
+.key {
+  background-image: url('http://srorieltomsk.ru/upload/medialibrary/a54/8503418_5f8e8269.gif') !important;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  /* // background-color: #18232f; */
+}
