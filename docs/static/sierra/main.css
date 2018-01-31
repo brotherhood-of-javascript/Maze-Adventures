@@ -30,10 +30,21 @@
 .button {
   min-width: 260px;
 }
+.enigma {
+  background-image: url('http://www.gifmania.ru/Animated-Gifs-Walt-Disney/Animations-Disney-Movies/Images-Alice-in-Wonderland/Cheshire-Cat/Cheshire-Cat-86017.gif');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #18232f;
+}
+.enigma-key {
+  background-image: url('http://srorieltomsk.ru/upload/medialibrary/a54/8503418_5f8e8269.gif');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #18232f;
+}
 .chest {
   background-image: url('https://i.pinimg.com/736x/b4/c0/f4/b4c0f4c875b7186507479f4368f2276b.jpg');
   background-repeat: no-repeat;
   background-color: #18232f;
   background-size: 100%;
-}
 }

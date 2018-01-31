@@ -12,6 +12,10 @@ export const move = (state, { type, xy }) => {
 export const del = (state, { type, xy }) => {
   state[type][xy.x][xy.y] = ' '
   state[type] = [...state[type]]
+  state.items['8'].dialog.food = state.inventory.reduce((sum, row) => {
+    row.forEach(val => (val === '6' ? sum++ : ''))
+    return sum
+  }, 0)
 }
 export const delchest = (state, { type, xy }) => {
   state.items['9'][type][xy.x][xy.y] = ' '
@@ -46,9 +50,10 @@ export const createNewState = (state, nameKey) => {
 export const drawItemInInventory = (state, { type, xy, item }) => {
   state[type][xy.x][xy.y] = item
   // collecting food
-  if (state[type][xy.x][xy.y] === '6') {
-    state.items['8'].dialog.food++
-  }
+  state.items['8'].dialog.food = state.inventory.reduce((sum, row) => {
+    row.forEach(val => (val === '6' ? sum++ : ''))
+    return sum
+  }, 0)
   // stop collect
   state[type] = [...state[type]]
 }
@@ -89,7 +94,8 @@ export const gnomeSpeak = (state, { dialog, links, status }) => {
     dialog.status = links[2]
   } else if (dialog.food < 3) {
     dialog.status = links[1]
-  } else if (dialog.food === 3) {
+  } else if (dialog.food >= 3) {
+    state.inventory = state.inventory.map(row => row.map(val => (val === '6' ? ' ' : val)))
     if (dialog.status === 3) state.cantWalk[3] = ''
     dialog.status = links[0]
   }
@@ -146,4 +152,8 @@ export const moveToChest = (state, { type, xy, item }) => {
 export const moveToInventory = (state, { type, xy, item }) => {
   state[type][xy.x][xy.y] = item
   state[type] = [...state[type]]
+  state.items['8'].dialog.food = state.inventory.reduce((sum, row) => {
+    row.forEach(val => (val === '6' ? sum++ : ''))
+    return sum
+  }, 0)
 }
