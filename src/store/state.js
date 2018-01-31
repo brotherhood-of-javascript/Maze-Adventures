@@ -50,7 +50,7 @@ export default function() {
         'You need only to view the movie Super Size Me to understand how foods impact the body'
       ),
       '7': new classes.Items('Main trasure', 0, 'mainTrasure', 'If you collect this you win the game'),
-      '*': new classes.Items('Key', 0, 'key'), // prize from quest enigma
+      '*': new classes.Items('Key', 0, 'key', 'This key help you open treasure chest'), // prize from quest enigma
       '8': (() => {
         const gnome = new classes.Dialog({
           0: { message: '', links: [1] },

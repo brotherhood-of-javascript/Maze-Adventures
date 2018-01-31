@@ -150,4 +150,10 @@ li {
 .choose {
   border: 2px solid white;
 }
+.key {
+  background-image: url('http://srorieltomsk.ru/upload/medialibrary/a54/8503418_5f8e8269.gif');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #18232f;
+}
 </style>
