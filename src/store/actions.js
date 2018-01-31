@@ -53,6 +53,16 @@ export const dialog = async ({ state, commit }, NPC) => {
     food: NPC.dialog.status === 4 ? NPC.dialog.food : ''
   })
 }
+export const fight = async ({ state, commit }, bot) => {
+  commit('showFightWindow')
+  commit('resultFight', { fight: bot.fight, links: bot.fight[bot.fight.statusOfWin].links, statusOfWin: bot.fight.statusOfWin })
+  // commit('gnomeSpeak', { dialog: NPC.dialog, links: NPC.dialog[NPC.dialog.status].links, status: NPC.dialog.status })
+  // commit('drowConversation', {
+  //   name: NPC.name,
+  //   message: NPC.dialog[NPC.dialog.status].message,
+  //   food: NPC.dialog.status === 4 ? NPC.dialog.food : ''
+  // })
+}
 export const dropItemsFromInventory = async ({ state, commit }, coords) => {
   commit('del', { type: 'inventory', xy: coords })
 }

@@ -7,6 +7,7 @@
         <GameTerran></GameTerran>
         <items-window v-show="itemsWindow"/>
         <dialog-window v-show="dialogWindow"/>
+        <fight-window v-show="this.$store.state.fightWindow"/>
       </div>
     </div>
     <div class="rightcol ">
@@ -27,6 +28,7 @@ import ItemsWindow from './ItemsWindow'
 import PopupNewGame from './PopupNewGame'
 import DialogWindow from './DialogWindow'
 import JurnalConversation from './JurnalConversation'
+import fightWindow from './fightWindow'
 
 const globalKey = 'quickSave3'
 export default {
@@ -37,7 +39,8 @@ export default {
       f5: false
     }
   },
-  components: { GameTerran, Inventory, ItemsWindow, PopupNewGame, DialogWindow, JurnalConversation },
+  components: {
+    GameTerran, Inventory, ItemsWindow, PopupNewGame, DialogWindow, JurnalConversation, fightWindow },
   methods: {
     getBoxInventory(event) {
       return this.$store.dispatch('getBoxInventory')
@@ -82,6 +85,9 @@ export default {
     },
     dialogWindow: function() {
       return this.$store.state.dialogWindow
+    },
+    fightWindow: function() {
+      return this.$store.state.fightWindow
     }
   }
 }
