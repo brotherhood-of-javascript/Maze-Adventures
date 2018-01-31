@@ -1,30 +1,40 @@
 <template>
   <div class="PopupNewGame">
-      <div>{{ msg }}</div>
-      <div class="aligner-space-around">
-          <button class="button block-mobile" @click="getYesAnsver">Yes</button>
-          <button class="button button-primary block-mobile" @click="getNoAnsver">No</button>
-      </div>
+    <div>{{ msg }}</div>
+      <!--<h1>{{alertsms}}</h1>-->
+    <div class="aligner-space-around bottom-btn">
+      <button class="button block-mobile" @click="getYesAnsver">yes</button>
+      <button class="button button-primary block-mobile" @click="getNoAnsver">No</button>
+    </div>
   </div>
 </template>
+
 <script>
 export default {
-  props: ['msg', 'route'],
+  name: 'error-resave-window',
+  props: {
+    msg: {
+      type: String
+    },
+    acceptresave: Function
+  },
+  data: function() {
+    return {}
+  },
+  // props: ['msg', 'alertsms'],
   methods: {
-    getYesAnsver(event) {
-      if (this.route) {
-        this.$router.push({ name: this.route })
-        if (this.route === 'MainMenu') window.location.reload()
-      } else this.$emit('sendNo', true)
-      this.$emit('closer', false)
+    getYesAnsver() {
+      this.$emit('acceptresave')
+      this.$emit('sendNo', false)
+      // console.log(this.acceptresave())
     },
     getNoAnsver(event) {
       this.$emit('sendNo', false)
-      this.$emit('closer', false)
     }
   }
 }
 </script>
+
 <style scoped>
 .PopupNewGame {
   position: absolute;
@@ -47,5 +57,8 @@ export default {
 }
 .button {
   min-width: 100px;
+}
+.bottom-btn {
+  margin: 40px 0;
 }
 </style>

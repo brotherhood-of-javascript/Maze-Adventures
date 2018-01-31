@@ -47,4 +47,45 @@ export const notWinGame = async ({ state, commit }) => {
 export const dialog = async ({ state, commit }, NPC) => {
   commit('ShowDialogWindow')
   commit('gnomeSpeak', { dialog: NPC.dialog, links: NPC.dialog[NPC.dialog.status].links, status: NPC.dialog.status })
+  let gnomeMess = NPC.dialog[NPC.dialog.status].message
+  let food = NPC.dialog.status === 4 ? NPC.dialog.food : ''
+  commit('drowConversation', {
+    name: NPC.name,
+    message: gnomeMess + food
+  })
+}
+// --- Quest ---
+export const getQuest = async ({ state, commit }, name) => {
+  commit('putNameQuest', name)
+  commit('showQuestWindow')
+}
+export const putQustInfo = async ({ state, commit }, obj) => {
+  commit('drowConversation', { name: obj.name, message: obj[obj.start].mess }) /// aded info
+  commit('putQustInfo', obj)
+}
+export const putQustbadAnsver = async ({ state, commit }, obj) => {
+  commit('putQustbadAnsver', obj)
+}
+export const herroAnsvers = async ({ state, commit }, herroAnsvers) => {
+  commit('herroAnsvers', herroAnsvers)
+}
+// --- / Quest ---
+export const dropItemsFromInventory = async ({ state, commit }, coords) => {
+  commit('del', { type: 'inventory', xy: coords })
+}
+export const itemMoverToChest = async ({ state, commit }, { coords, from, to }) => {
+  commit('moveToChest', {
+    type: 'store',
+    xy: findEmptyPlace(to),
+    item: from[coords.x][coords.y]
+  })
+  commit('del', { type: 'inventory', xy: coords })
+}
+export const itemMoverToInventory = async ({ state, commit }, { coords, from, to }) => {
+  commit('moveToInventory', {
+    type: 'inventory',
+    xy: findEmptyPlace(from),
+    item: to[coords.x][coords.y]
+  })
+  commit('delchest', { type: 'store', xy: coords })
 }

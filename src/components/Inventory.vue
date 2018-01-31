@@ -1,20 +1,32 @@
 <template>
     <div class="inventory">
         <ul class="inventory-maine" >
-            <li v-for="item in drowBoxInventory" >
-                <div  v-for="i in item" :class="`section  ${i.class}`" @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" ></div>
+            <li v-for="(item, x) in drowBoxInventory" @click="choiceStore(true)" >
+                <div  v-for="(i, y) in item" v-bind:class="x===chousedItem.x && y===chousedItem.y && whatInventory ? `section  ${i.class} choose`:`section  ${i.class}`"
+                @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" @click="choice(x, y, i.name, i.val)"></div>
             </li>
         </ul>
         <div class="text-medium text-gray background-dark inventory-box">
             You have:{{ this.$store.state.totalWeight }} /{{ this.$store.state.herroWeight }} kilo
         </div>
+        <button class="button button-primary button-big block-mobile save-btn " @click="itemDroper" v-show="!atTrasureChest">Drop</button>
+        <button class="button button-primary button-big block-mobile save-btn " @click="itemDroper" v-show="atTrasureChest">{{whatInventory ? "Put In " : "Pick From " }}Chest</button>
+        <ul class="inventory-maine" v-show="atTrasureChest" @click="choiceStore(false)">
+            <li v-for="(item, x) in drawChest" >
+                <div  v-for="(i, y) in item" v-bind:class="x===chousedItem.x && y===chousedItem.y && !whatInventory ? `section  ${i.class} choose`:`section  ${i.class}`"
+                @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" @click="choice(x, y, i.name, i.val)"></div>
+            </li>
+        </ul>        
         <p :class= "classObject" v-show = "this.$store.state.fullBag" >{{ messege }} </p>
         <p :class= "classInfo" >{{ itemInfo.text }} <br> {{ itemInfo.weigth }} </p>
+        <PopupMenu v-show="showPopup" @closer="showPopup = $event" @sendNo="dropOrNot = $event" :msg="`Do you want to Desroy this item ${chousedItem.name}`"/>
     </div>
 </template>
 
 <script>
+import PopupMenu from './PopupNewGame'
 export default {
+  components: { PopupMenu },
   data: function() {
     return {
       inventory: this.$store.state.inventory,
@@ -29,10 +41,19 @@ export default {
         'text-medium': true,
         'inventory-box': true,
         'text-primary': true
-      }
+      },
+      chousedItem: { val: ' ' },
+      showPopup: false,
+      dropOrNot: false,
+      whatInventory: true
     }
   },
   methods: {
+    choice(x, y, name, val) {
+      this.dropOrNot = false
+      this.showPopup = false
+      this.chousedItem = { x: x, y: y, name: name, val: val }
+    },
     getInformationItem(val) {
       return (this.itemInfo = {
         text: this.$store.state.items[val].info,
@@ -42,11 +63,40 @@ export default {
     },
     cleanItemInfo(event) {
       return (this.itemInfo = '')
+    },
+    itemDroper() {
+      const inventory = this.$store.state.inventory
+      const chest = this.$store.state.items['9'].store
+
+      if (this.chousedItem.val !== ' ' && !this.atTrasureChest) {
+        this.showPopup = true
+      } else if (this.whatInventory) {
+        this.$store.dispatch('itemMoverToChest', { coords: this.chousedItem, from: inventory, to: chest })
+      } else if (!this.whatInventory) {
+        this.$store.dispatch('itemMoverToInventory', { coords: this.chousedItem, to: chest, from: inventory })
+      }
+      this.$store.commit('CalculateItems')
+    },
+    choiceStore(str) {
+      this.whatInventory = str
     }
+  },
+  beforeUpdate: function() {
+    if (this.dropOrNot) this.$store.dispatch('dropItemsFromInventory', this.chousedItem)
+    this.$store.commit('CalculateItems')
+    this.dropOrNot = false
   },
   computed: {
     drowBoxInventory() {
       return this.$store.getters.drowBoxInventory
+    },
+    drawChest() {
+      return this.$store.getters.drawChest
+    },
+    atTrasureChest() {
+      const terran = this.$store.state.terran
+      const hero = this.$store.state.hero
+      return terran[hero.x][hero.y] === '9'
     }
   }
 }
@@ -96,5 +146,8 @@ li {
   background-repeat: no-repeat;
   background-color: #18232f;
   background-size: 100%;
+}
+.choose {
+  border: 2px solid white;
 }
 </style>

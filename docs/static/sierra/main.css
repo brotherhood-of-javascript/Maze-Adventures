@@ -30,3 +30,10 @@
 .button {
   min-width: 260px;
 }
+.chest {
+  background-image: url('https://i.pinimg.com/736x/b4/c0/f4/b4c0f4c875b7186507479f4368f2276b.jpg');
+  background-repeat: no-repeat;
+  background-color: #18232f;
+  background-size: 100%;
+}
+}

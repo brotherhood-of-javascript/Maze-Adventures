@@ -7,10 +7,15 @@ export const move = (state, { type, xy }) => {
   state[type].y = xy.y
   state.itemsWindow = false
   state.dialogWindow = false
+  state.quest.window = false
 }
 export const del = (state, { type, xy }) => {
   state[type][xy.x][xy.y] = ' '
   state[type] = [...state[type]]
+}
+export const delchest = (state, { type, xy }) => {
+  state.items['9'][type][xy.x][xy.y] = ' '
+  state.items['9'][type] = [...state.items['9'][type]]
 }
 export const saveNewState = (state, { key, value }) => {
   localStorage.setItem(key, JSON.stringify(value))
@@ -18,7 +23,7 @@ export const saveNewState = (state, { key, value }) => {
 export const removeSavedState = (state, name) => {
   localStorage.removeItem(name)
 }
-export const loadNewState = (state, {key, value}) => {
+export const loadNewState = (state, { key, value }) => {
   JSON.parse(localStorage.getItem(key, JSON.stringify(value)))
 }
 export const hideOrShowItemWindow = state => {
@@ -26,6 +31,9 @@ export const hideOrShowItemWindow = state => {
 }
 export const ShowDialogWindow = state => {
   state.dialogWindow = true
+}
+export const showQuestWindow = state => {
+  state.quest.window = true
 }
 export const hideOrShowInventory = state => {
   state.openInventory = !state.openInventory
@@ -44,8 +52,13 @@ export const drawItemInInventory = (state, { type, xy, item }) => {
   // stop collect
   state[type] = [...state[type]]
 }
-export const CalculateItems = (state, num) => {
-  state.totalWeight += state.items[num].weight
+export const CalculateItems = state => {
+  state.totalWeight = state.inventory.reduce((sum, row) => {
+    row.forEach(val => {
+      sum += state.items[val].weight
+    })
+    return sum
+  }, 0)
 }
 export const checkingWaightBag = (state, num) => {
   let culWeight = state.totalWeight + state.items[num].weight
@@ -68,6 +81,7 @@ export const trueWin = state => {
 export const falseWin = state => {
   state.gameWinned = false
 }
+
 export const gnomeSpeak = (state, { dialog, links, status }) => {
   if (status === 0 || status === 1) {
     dialog.status = links[0]
@@ -82,4 +96,47 @@ export const gnomeSpeak = (state, { dialog, links, status }) => {
 }
 export const loaderGame = (state, { loadedGame }) => {
   Object.assign(state, JSON.parse(loadedGame))
+}
+export const drowConversation = (state, dialog) => {
+  state.jurnalConversation.push(dialog)
+}
+// --- Quest ---
+export const putNameQuest = (state, name) => {
+  return (state.nameQuest = name)
+}
+export const putQustInfo = (state, obj) => {
+  obj.badAnsver = ''
+  obj.start = obj[obj.start].links
+
+  state.quest.status[obj.class] = obj.done
+  if (obj.start[0] === 5) {
+    obj.getPrize = true
+    state.quest.status[obj.class] = 'You have passed it'
+  }
+}
+export const putQustbadAnsver = (state, obj) => {
+  if (obj.start === 0) {
+    state.jurnalConversation.push({ name: obj.name, message: obj[obj.start].mess })
+    state.quest.window = obj[obj.start].badAnsver
+  } else {
+    state.jurnalConversation.push({
+      name: obj.name,
+      message: obj[obj[obj.start].badAnsver].mess + '' + obj[obj.start].mess
+    })
+    obj.badAnsver = obj[obj[obj.start].badAnsver].mess
+  }
+}
+export const herroAnsvers = (state, ansver) => {
+  state.jurnalConversation.push({ name: 'hero', message: ansver })
+}
+// ---/ Quest ---
+export const moveToChest = (state, { type, xy, item }) => {
+  state.items['9'][type][xy.x][xy.y] = item
+  state.items['9'][type] = [...state.items['9'][type]]
+}
+export const moveToInventory = (state, { type, xy, item }) => {
+  console.log('item=>', item)
+  state[type][xy.x][xy.y] = item
+  state[type] = [...state[type]]
+  //  console.log(state.items['9'][type][0][0])
 }
