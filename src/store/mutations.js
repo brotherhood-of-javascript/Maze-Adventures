@@ -36,6 +36,8 @@ export const hideOrShowItemWindow = state => {
 export const ShowDialogWindow = state => {
   state.dialogWindow = true
 }
+export const showFightWindow = state => {
+  state.fightWindow = !state.fightWindow
 export const showQuestWindow = state => {
   state.quest.window = true
 }
@@ -99,6 +101,15 @@ export const gnomeSpeak = (state, { dialog, links, status }) => {
     if (dialog.status === 3) state.cantWalk[3] = ''
     dialog.status = links[0]
   }
+}
+export const resultFight = (state, { fight, links, statusOfWin }) => {
+  statusOfWin = Math.round(Math.random())
+  if (statusOfWin === 0) {
+    fight.statusOfWin = links[0]
+  } else if (statusOfWin === 1) {
+    fight.statusOfWin = links[1]
+  }
+  console.log(statusOfWin)
 }
 export const loaderGame = (state, { loadedGame }) => {
   Object.assign(state, JSON.parse(loadedGame))
