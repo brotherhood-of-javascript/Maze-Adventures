@@ -1,8 +1,8 @@
 <template>
     <div class="inventory">
         <ul class="inventory-maine" >
-            <li v-for="(item, x) in drowBoxInventory" >
-                <div  v-for="(i, y) in item" v-bind:class="x===chousedItem.x && y===chousedItem.y ? `section  ${i.class} choose`:`section  ${i.class}`"
+            <li v-for="(item, x) in drowBoxInventory" @click="choiceStore(true)" >
+                <div  v-for="(i, y) in item" v-bind:class="x===chousedItem.x && y===chousedItem.y && whatInventory ? `section  ${i.class} choose`:`section  ${i.class}`"
                 @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" @click="choice(x, y, i.name, i.val)"></div>
             </li>
         </ul>
@@ -10,10 +10,10 @@
             You have:{{ this.$store.state.totalWeight }} /{{ this.$store.state.herroWeight }} kilo
         </div>
         <button class="button button-primary button-big block-mobile save-btn " @click="itemDroper" v-show="!atTrasureChest">Drop</button>
-        <button class="button button-primary button-big block-mobile save-btn " v-show="atTrasureChest">Put In Chest</button>
-        <ul class="inventory-maine" v-show="atTrasureChest">
+        <button class="button button-primary button-big block-mobile save-btn " @click="itemDroper" v-show="atTrasureChest">{{whatInventory ? "Put In " : "Pick From " }}Chest</button>
+        <ul class="inventory-maine" v-show="atTrasureChest" @click="choiceStore(false)">
             <li v-for="(item, x) in drawChest" >
-                <div  v-for="(i, y) in item" v-bind:class="x===chousedItem.x && y===chousedItem.y ? `section  ${i.class} choose`:`section  ${i.class}`"
+                <div  v-for="(i, y) in item" v-bind:class="x===chousedItem.x && y===chousedItem.y && !whatInventory ? `section  ${i.class} choose`:`section  ${i.class}`"
                 @mouseenter="getInformationItem(i.val)" @mouseleave="cleanItemInfo" @click="choice(x, y, i.name, i.val)"></div>
             </li>
         </ul>        
@@ -44,7 +44,8 @@ export default {
       },
       chousedItem: { val: ' ' },
       showPopup: false,
-      dropOrNot: false
+      dropOrNot: false,
+      whatInventory: true
     }
   },
   methods: {
@@ -64,13 +65,25 @@ export default {
       return (this.itemInfo = '')
     },
     itemDroper() {
-      if (this.chousedItem.val !== ' ') {
+      const inventory = this.$store.state.inventory
+      const chest = this.$store.state.items['9'].store
+
+      if (this.chousedItem.val !== ' ' && !this.atTrasureChest) {
         this.showPopup = true
-      } else this.showPopup = false
+      } else if (this.whatInventory) {
+        this.$store.dispatch('itemMoverToChest', { coords: this.chousedItem, from: inventory, to: chest })
+      } else if (!this.whatInventory) {
+        this.$store.dispatch('itemMoverToInventory', { coords: this.chousedItem, to: chest, from: inventory })
+      }
+      this.$store.commit('CalculateItems')
+    },
+    choiceStore(str) {
+      this.whatInventory = str
     }
   },
   beforeUpdate: function() {
     if (this.dropOrNot) this.$store.dispatch('dropItemsFromInventory', this.chousedItem)
+    this.$store.commit('CalculateItems')
     this.dropOrNot = false
   },
   computed: {

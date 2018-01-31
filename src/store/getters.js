@@ -18,7 +18,9 @@ export const itemGetter = state => state.items[state.terran[state.hero.x][state.
 
 export const dialogGetter = state => state.items['8']
 export const monsterFreddy = state => state.items['2']
-
+export const getYorQuestForNow = state => {
+  return state.quest[state.nameQuest]
+}
 export const globalKey = () => 'saveKey'
 
 export const drawChest = state =>

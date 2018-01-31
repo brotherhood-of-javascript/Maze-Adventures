@@ -2,7 +2,7 @@
   <div class="over">
     <div class="text-huge text-white text-with-subtitle under">{{NPC.name}} 
       <div :class="NPC.class" class="picture"></div>
-      {{NPC.dialog[NPC.dialog.status].message}}{{NPC.dialog.status===4?NPC.dialog.food:''}}
+      {{NPC.dialog[this.$store.state.items['8'].dialog.status].message}}{{NPC.dialog.status === 4 ? NPC.dialog.food:''}}
     </div>
   
   </div>
