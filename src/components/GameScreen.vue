@@ -7,6 +7,7 @@
         <GameTerran></GameTerran>
         <items-window v-show="itemsWindow"/>
         <dialog-window v-show="dialogWindow"/>
+        <fight-window v-show="this.$store.state.fightWindow"/>
         <quest v-if="questWindow"></quest>
       </div>
     </div>
@@ -29,6 +30,7 @@ import ItemsWindow from './ItemsWindow'
 import PopupNewGame from './PopupNewGame'
 import DialogWindow from './DialogWindow'
 import JurnalConversation from './JurnalConversation'
+import fightWindow from './fightWindow'
 import Quest from './Quest'
 import JurnalQuests from './JurnalQuests'
 
@@ -49,7 +51,8 @@ export default {
     DialogWindow,
     JurnalConversation,
     Quest,
-    JurnalQuests
+    JurnalQuests,
+    fightWindow
   },
   methods: {
     getBoxInventory(event) {
@@ -91,6 +94,9 @@ export default {
     },
     dialogWindow: function() {
       return this.$store.state.dialogWindow
+    },
+    fightWindow: function() {
+      return this.$store.state.fightWindow
     },
     questWindow: function() {
       return this.$store.state.quest.window

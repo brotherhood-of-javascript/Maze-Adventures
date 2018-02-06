@@ -54,6 +54,16 @@ export const dialog = async ({ state, commit }, NPC) => {
     message: gnomeMess + food
   })
 }
+export const fight = async ({ state, commit }, bot) => {
+  commit('showFightWindow')
+  commit('resultFight', { fight: bot.fight, links: bot.fight[bot.fight.statusOfWin].links, statusOfWin: bot.fight.statusOfWin })
+  // commit('gnomeSpeak', { dialog: NPC.dialog, links: NPC.dialog[NPC.dialog.status].links, status: NPC.dialog.status })
+  // commit('drowConversation', {
+  //   name: NPC.name,
+  //   message: NPC.dialog[NPC.dialog.status].message,
+  //   food: NPC.dialog.status === 4 ? NPC.dialog.food : ''
+  // })
+}
 // --- Quest ---
 export const getQuest = async ({ state, commit }, name) => {
   commit('putNameQuest', name)
@@ -62,6 +72,15 @@ export const getQuest = async ({ state, commit }, name) => {
 export const putQustInfo = async ({ state, commit }, obj) => {
   commit('drowConversation', { name: obj.name, message: obj[obj.start].mess }) /// aded info
   commit('putQustInfo', obj)
+
+  if (obj.start[0] === 5) {
+    // added item from quest to inventary
+    commit('drawItemInInventory', {
+      type: 'inventory',
+      xy: findEmptyPlace(state.inventory),
+      item: obj[obj.start].prize
+    })
+  }
 }
 export const putQustbadAnsver = async ({ state, commit }, obj) => {
   commit('putQustbadAnsver', obj)
@@ -69,7 +88,9 @@ export const putQustbadAnsver = async ({ state, commit }, obj) => {
 export const herroAnsvers = async ({ state, commit }, herroAnsvers) => {
   commit('herroAnsvers', herroAnsvers)
 }
+
 // --- / Quest ---
+
 export const dropItemsFromInventory = async ({ state, commit }, coords) => {
   commit('del', { type: 'inventory', xy: coords })
 }

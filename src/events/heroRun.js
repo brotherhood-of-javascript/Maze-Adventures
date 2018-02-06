@@ -6,12 +6,16 @@ export default function heroRunEvent(event) {
   const itemsToWin = this.$store.state.itemsToWin
   const items = this.$store.state.items
   const NPC = this.$store.state.NPC
+  const bot = this.$store.state.bot
   const quest = this.$store.state.quest.number
 
   switch (event.keyCode) {
     case 40: // down
       if (NPC.includes(terran[hero.x + 1][hero.y])) {
         this.$store.dispatch('dialog', items[terran[hero.x + 1][hero.y]])
+      }
+      if (bot.includes(terran[hero.x + 1][hero.y])) {
+        this.$store.dispatch('fight', items[terran[hero.x + 1][hero.y]])
       }
       // Quest starting
       if (quest.includes(terran[hero.x + 1][hero.y])) {
@@ -25,6 +29,9 @@ export default function heroRunEvent(event) {
       if (NPC.includes(terran[hero.x - 1][hero.y])) {
         this.$store.dispatch('dialog', items[terran[hero.x + 1][hero.y]])
       }
+      if (bot.includes(terran[hero.x - 1][hero.y])) {
+        this.$store.dispatch('fight', items[terran[hero.x + 1][hero.y]])
+      }
       // Quest starting
       if (quest.includes(terran[hero.x - 1][hero.y])) {
         this.$store.dispatch('getQuest', items[terran[hero.x - 1][hero.y]].class)
@@ -37,11 +44,13 @@ export default function heroRunEvent(event) {
       if (NPC.includes(terran[hero.x][hero.y + 1])) {
         this.$store.dispatch('dialog', items[terran[hero.x][hero.y + 1]])
       }
+      if (bot.includes(terran[hero.x][hero.y + 1])) {
+        this.$store.dispatch('fight', items[terran[hero.x][hero.y + 1]])
+      }
       // Quest starting
       if (quest.includes(terran[hero.x][hero.y + 1])) {
         this.$store.dispatch('getQuest', items[terran[hero.x][hero.y + 1]].class)
       }
-
       if (cantWalk.includes(terran[hero.x][hero.y + 1])) return
       this.$store.dispatch('heroMove', { x: hero.x, y: hero.y + 1 })
       break
@@ -49,11 +58,13 @@ export default function heroRunEvent(event) {
       if (NPC.includes(terran[hero.x][hero.y - 1])) {
         this.$store.dispatch('dialog', items[terran[hero.x][hero.y - 1]])
       }
+      if (bot.includes(terran[hero.x][hero.y - 1])) {
+        this.$store.dispatch('fight', items[terran[hero.x][hero.y - 1]])
+      }
       // Quest starting
       if (quest.includes(terran[hero.x][hero.y - 1])) {
         this.$store.dispatch('getQuest', items[terran[hero.x][hero.y - 1]].class)
       }
-
       if (cantWalk.includes(terran[hero.x][hero.y - 1])) return
       this.$store.dispatch('heroMove', { x: hero.x, y: hero.y - 1 })
       break
@@ -66,5 +77,4 @@ export default function heroRunEvent(event) {
       break
   }
 }
-
 export function heroRun1() {}

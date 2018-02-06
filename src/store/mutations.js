@@ -12,6 +12,10 @@ export const move = (state, { type, xy }) => {
 export const del = (state, { type, xy }) => {
   state[type][xy.x][xy.y] = ' '
   state[type] = [...state[type]]
+  state.items['8'].dialog.food = state.inventory.reduce((sum, row) => {
+    row.forEach(val => (val === '6' ? sum++ : ''))
+    return sum
+  }, 0)
 }
 export const delchest = (state, { type, xy }) => {
   state.items['9'][type][xy.x][xy.y] = ' '
@@ -32,6 +36,9 @@ export const hideOrShowItemWindow = state => {
 export const ShowDialogWindow = state => {
   state.dialogWindow = true
 }
+export const showFightWindow = state => {
+  state.fightWindow = !state.fightWindow
+}
 export const showQuestWindow = state => {
   state.quest.window = true
 }
@@ -46,9 +53,10 @@ export const createNewState = (state, nameKey) => {
 export const drawItemInInventory = (state, { type, xy, item }) => {
   state[type][xy.x][xy.y] = item
   // collecting food
-  if (state[type][xy.x][xy.y] === '6') {
-    state.items['8'].dialog.food++
-  }
+  state.items['8'].dialog.food = state.inventory.reduce((sum, row) => {
+    row.forEach(val => (val === '6' ? sum++ : ''))
+    return sum
+  }, 0)
   // stop collect
   state[type] = [...state[type]]
 }
@@ -89,10 +97,20 @@ export const gnomeSpeak = (state, { dialog, links, status }) => {
     dialog.status = links[2]
   } else if (dialog.food < 3) {
     dialog.status = links[1]
-  } else if (dialog.food === 3) {
+  } else if (dialog.food >= 3) {
+    state.inventory = state.inventory.map(row => row.map(val => (val === '6' ? ' ' : val)))
     if (dialog.status === 3) state.cantWalk[3] = ''
     dialog.status = links[0]
   }
+}
+export const resultFight = (state, { fight, links, statusOfWin }) => {
+  statusOfWin = Math.round(Math.random())
+  if (statusOfWin === 0) {
+    fight.statusOfWin = links[0]
+  } else if (statusOfWin === 1) {
+    fight.statusOfWin = links[1]
+  }
+  console.log(statusOfWin)
 }
 export const loaderGame = (state, { loadedGame }) => {
   Object.assign(state, JSON.parse(loadedGame))
@@ -100,6 +118,7 @@ export const loaderGame = (state, { loadedGame }) => {
 export const drowConversation = (state, dialog) => {
   state.jurnalConversation.push(dialog)
 }
+
 // --- Quest ---
 export const putNameQuest = (state, name) => {
   return (state.nameQuest = name)
@@ -112,6 +131,7 @@ export const putQustInfo = (state, obj) => {
   if (obj.start[0] === 5) {
     obj.getPrize = true
     state.quest.status[obj.class] = 'You have passed it'
+    state.jurnalConversation.push({ name: obj.name, message: obj[obj.start].mess })
   }
 }
 export const putQustbadAnsver = (state, obj) => {
@@ -129,14 +149,23 @@ export const putQustbadAnsver = (state, obj) => {
 export const herroAnsvers = (state, ansver) => {
   state.jurnalConversation.push({ name: 'hero', message: ansver })
 }
+export const putItemfromQuest = (state, ansver) => {
+  state[ansver.type][ansver.xy.x][ansver.xy.y] = ansver.prize
+
+  console.log('dd', ansver)
+  console.log('state', state[ansver.type][ansver.xy.x][ansver.xy.y])
+}
 // ---/ Quest ---
+
 export const moveToChest = (state, { type, xy, item }) => {
   state.items['9'][type][xy.x][xy.y] = item
   state.items['9'][type] = [...state.items['9'][type]]
 }
 export const moveToInventory = (state, { type, xy, item }) => {
-  console.log('item=>', item)
   state[type][xy.x][xy.y] = item
   state[type] = [...state[type]]
-  //  console.log(state.items['9'][type][0][0])
+  state.items['8'].dialog.food = state.inventory.reduce((sum, row) => {
+    row.forEach(val => (val === '6' ? sum++ : ''))
+    return sum
+  }, 0)
 }

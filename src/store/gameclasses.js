@@ -6,6 +6,13 @@ export class Items {
     this.info = info
   }
 }
+export class Fight extends Items {
+  constructor(fight) {
+    super()
+    this.fight = fight
+  }
+}
+
 export class Dialog extends Items {
   constructor(dialog) {
     super()
